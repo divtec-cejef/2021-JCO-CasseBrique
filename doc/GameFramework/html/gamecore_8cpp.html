@@ -1,0 +1,325 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.14"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>GameFramework: Référence du fichier gamecore.cpp</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">GameFramework
+   &#160;<span id="projectnumber">0.1</span>
+   </div>
+   <div id="projectbrief">GameFramework</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.8.14 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Recherche');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#enum-members">Énumérations</a> &#124;
+<a href="#var-members">Variables</a>  </div>
+  <div class="headertitle">
+<div class="title">Référence du fichier gamecore.cpp</div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &quot;<a class="el" href="gamecore_8h_source.html">gamecore.h</a>&quot;</code><br />
+<code>#include &lt;cmath&gt;</code><br />
+<code>#include &lt;QDebug&gt;</code><br />
+<code>#include &lt;QGraphicsBlurEffect&gt;</code><br />
+<code>#include &lt;QGraphicsScale&gt;</code><br />
+<code>#include &lt;QGraphicsSvgItem&gt;</code><br />
+<code>#include &lt;QParallelAnimationGroup&gt;</code><br />
+<code>#include &lt;QPainter&gt;</code><br />
+<code>#include &lt;QPropertyAnimation&gt;</code><br />
+<code>#include &lt;QSequentialAnimationGroup&gt;</code><br />
+<code>#include &lt;QSettings&gt;</code><br />
+<code>#include &quot;<a class="el" href="automaticwalkinghandler_8h_source.html">automaticwalkinghandler.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="blueball_8h_source.html">blueball.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="bouncingspritehandler_8h_source.html">bouncingspritehandler.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="gamescene_8h_source.html">gamescene.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="gamecanvas_8h_source.html">gamecanvas.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="manualwalkinghandler_8h_source.html">manualwalkinghandler.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="randommovetickhandler_8h_source.html">randommovetickhandler.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="player_8h_source.html">player.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="resources_8h_source.html">resources.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="spinningpinwheel_8h_source.html">spinningpinwheel.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="sprite_8h_source.html">sprite.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="utilities_8h_source.html">utilities.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="walkingman_8h_source.html">walkingman.h</a>&quot;</code><br />
+</div>
+<p><a href="gamecore_8cpp_source.html">Aller au code source de ce fichier.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
+Énumérations</h2></td></tr>
+<tr class="memitem:ad4de2fb9bc41f6d43213ddbf6761d89a"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gamecore_8cpp.html#ad4de2fb9bc41f6d43213ddbf6761d89a">SpriteDataKey</a> { <a class="el" href="gamecore_8cpp.html#ad4de2fb9bc41f6d43213ddbf6761d89aa77bf746b5afce7e6850fbe763f7d4518">SPRITE_TYPE_KEY</a> = 0, 
+<a class="el" href="gamecore_8cpp.html#ad4de2fb9bc41f6d43213ddbf6761d89aa95a08ea8b6bd0102bb7b8808257b3a36">EARTH_ANGLE_KEY</a>, 
+<a class="el" href="gamecore_8cpp.html#ad4de2fb9bc41f6d43213ddbf6761d89aa9c545d2366f94bad2ab6ff63695fb5cf">EARTH_CENTER_KEY</a>, 
+<a class="el" href="gamecore_8cpp.html#ad4de2fb9bc41f6d43213ddbf6761d89aa6742a92f1d30d6ee83af6bd6256887ec">EARTH_RADIUS_KEY</a>
+ }</td></tr>
+<tr class="separator:ad4de2fb9bc41f6d43213ddbf6761d89a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:aa4ab1c2c315cd91a2dfe1f5a78c45445"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gamecore_8cpp.html#aa4ab1c2c315cd91a2dfe1f5a78c45445">SCENE_WIDTH</a> = 1280</td></tr>
+<tr class="separator:aa4ab1c2c315cd91a2dfe1f5a78c45445"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5710f1fc62dc9f1062ed7376efe359bc"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gamecore_8cpp.html#a5710f1fc62dc9f1062ed7376efe359bc">SCENE_HEIGHT</a> = 1080</td></tr>
+<tr class="separator:a5710f1fc62dc9f1062ed7376efe359bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a23fd1bff5bf0605ab135bed711b6be40"><td class="memItemLeft" align="right" valign="top">const <a class="elRef" doxygen="C:/Users/conujer.DIVTEC/Documents/work/2018-JCO-GameFramework/src/qtcore.tags:http://qt-project.org/doc/qt-5/" href="http://qt-project.org/doc/qt-5/qpointf.html">QPointF</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gamecore_8cpp.html#a23fd1bff5bf0605ab135bed711b6be40">BOUNCING_AREA_POS</a> (700, 300)</td></tr>
+<tr class="separator:a23fd1bff5bf0605ab135bed711b6be40"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a03d15cdcd8e8f2ccea5dd27708350e8a"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gamecore_8cpp.html#a03d15cdcd8e8f2ccea5dd27708350e8a">BOUNCING_AREA_SIZE</a> = 20</td></tr>
+<tr class="separator:a03d15cdcd8e8f2ccea5dd27708350e8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b68615a33e0ccf771bae3fb1cc92c8e"><td class="memItemLeft" align="right" valign="top">const <a class="elRef" doxygen="C:/Users/conujer.DIVTEC/Documents/work/2018-JCO-GameFramework/src/qtcore.tags:http://qt-project.org/doc/qt-5/" href="http://qt-project.org/doc/qt-5/qstring.html">QString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gamecore_8cpp.html#a4b68615a33e0ccf771bae3fb1cc92c8e">HEADSHOOT_TYPE</a> = &quot;headshot&quot;</td></tr>
+<tr class="separator:a4b68615a33e0ccf771bae3fb1cc92c8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae2db513331a753dd06e2ded22259de43"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gamecore_8cpp.html#ae2db513331a753dd06e2ded22259de43">EXPLOSION_SHEET_WIDTH</a> = 128</td></tr>
+<tr class="separator:ae2db513331a753dd06e2ded22259de43"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a22ef858eb7356aaf6f44a8e45f91d93f"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gamecore_8cpp.html#a22ef858eb7356aaf6f44a8e45f91d93f">EXPLOSION_SHEET_HEIGHT</a> = 128</td></tr>
+<tr class="separator:a22ef858eb7356aaf6f44a8e45f91d93f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a13c68f04a631b50486dac395adfd1361"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gamecore_8cpp.html#a13c68f04a631b50486dac395adfd1361">EXPLOSION_SHEET_COUNT</a> = 14</td></tr>
+<tr class="separator:a13c68f04a631b50486dac395adfd1361"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac8bd3f70c1fa645c9065c6a3b55dc0d1"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gamecore_8cpp.html#ac8bd3f70c1fa645c9065c6a3b55dc0d1">EXPLOSION_SHEET_COLUMN_COUNT</a> = 4</td></tr>
+<tr class="separator:ac8bd3f70c1fa645c9065c6a3b55dc0d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba4c865836954e4f1c2273cb6566b846"><td class="memItemLeft" align="right" valign="top">const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gamecore_8cpp.html#aba4c865836954e4f1c2273cb6566b846">EARTH_SPEED</a> = 2</td></tr>
+<tr class="separator:aba4c865836954e4f1c2273cb6566b846"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Documentation du type de l'énumération</h2>
+<a id="ad4de2fb9bc41f6d43213ddbf6761d89a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4de2fb9bc41f6d43213ddbf6761d89a">&#9670;&nbsp;</a></span>SpriteDataKey</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="gamecore_8cpp.html#ad4de2fb9bc41f6d43213ddbf6761d89a">SpriteDataKey</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Valeurs énumérées</th></tr><tr><td class="fieldname"><a id="ad4de2fb9bc41f6d43213ddbf6761d89aa77bf746b5afce7e6850fbe763f7d4518"></a>SPRITE_TYPE_KEY&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ad4de2fb9bc41f6d43213ddbf6761d89aa95a08ea8b6bd0102bb7b8808257b3a36"></a>EARTH_ANGLE_KEY&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ad4de2fb9bc41f6d43213ddbf6761d89aa9c545d2366f94bad2ab6ff63695fb5cf"></a>EARTH_CENTER_KEY&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ad4de2fb9bc41f6d43213ddbf6761d89aa6742a92f1d30d6ee83af6bd6256887ec"></a>EARTH_RADIUS_KEY&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+<p class="definition">Définition à la ligne <a class="el" href="gamecore_8cpp_source.html#l00048">48</a> du fichier <a class="el" href="gamecore_8cpp_source.html">gamecore.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Documentation des variables</h2>
+<a id="a23fd1bff5bf0605ab135bed711b6be40"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a23fd1bff5bf0605ab135bed711b6be40">&#9670;&nbsp;</a></span>BOUNCING_AREA_POS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="elRef" doxygen="C:/Users/conujer.DIVTEC/Documents/work/2018-JCO-GameFramework/src/qtcore.tags:http://qt-project.org/doc/qt-5/" href="http://qt-project.org/doc/qt-5/qpointf.html">QPointF</a> BOUNCING_AREA_POS(700, 300)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a03d15cdcd8e8f2ccea5dd27708350e8a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a03d15cdcd8e8f2ccea5dd27708350e8a">&#9670;&nbsp;</a></span>BOUNCING_AREA_SIZE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const int BOUNCING_AREA_SIZE = 20</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="gamecore_8cpp_source.html#l00039">39</a> du fichier <a class="el" href="gamecore_8cpp_source.html">gamecore.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aba4c865836954e4f1c2273cb6566b846"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba4c865836954e4f1c2273cb6566b846">&#9670;&nbsp;</a></span>EARTH_SPEED</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const double EARTH_SPEED = 2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="gamecore_8cpp_source.html#l00055">55</a> du fichier <a class="el" href="gamecore_8cpp_source.html">gamecore.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ac8bd3f70c1fa645c9065c6a3b55dc0d1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac8bd3f70c1fa645c9065c6a3b55dc0d1">&#9670;&nbsp;</a></span>EXPLOSION_SHEET_COLUMN_COUNT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const int EXPLOSION_SHEET_COLUMN_COUNT = 4</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="gamecore_8cpp_source.html#l00046">46</a> du fichier <a class="el" href="gamecore_8cpp_source.html">gamecore.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a13c68f04a631b50486dac395adfd1361"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a13c68f04a631b50486dac395adfd1361">&#9670;&nbsp;</a></span>EXPLOSION_SHEET_COUNT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const int EXPLOSION_SHEET_COUNT = 14</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="gamecore_8cpp_source.html#l00045">45</a> du fichier <a class="el" href="gamecore_8cpp_source.html">gamecore.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a22ef858eb7356aaf6f44a8e45f91d93f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a22ef858eb7356aaf6f44a8e45f91d93f">&#9670;&nbsp;</a></span>EXPLOSION_SHEET_HEIGHT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const int EXPLOSION_SHEET_HEIGHT = 128</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="gamecore_8cpp_source.html#l00044">44</a> du fichier <a class="el" href="gamecore_8cpp_source.html">gamecore.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ae2db513331a753dd06e2ded22259de43"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae2db513331a753dd06e2ded22259de43">&#9670;&nbsp;</a></span>EXPLOSION_SHEET_WIDTH</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const int EXPLOSION_SHEET_WIDTH = 128</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="gamecore_8cpp_source.html#l00043">43</a> du fichier <a class="el" href="gamecore_8cpp_source.html">gamecore.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a4b68615a33e0ccf771bae3fb1cc92c8e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b68615a33e0ccf771bae3fb1cc92c8e">&#9670;&nbsp;</a></span>HEADSHOOT_TYPE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="elRef" doxygen="C:/Users/conujer.DIVTEC/Documents/work/2018-JCO-GameFramework/src/qtcore.tags:http://qt-project.org/doc/qt-5/" href="http://qt-project.org/doc/qt-5/qstring.html">QString</a> HEADSHOOT_TYPE = &quot;headshot&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="gamecore_8cpp_source.html#l00041">41</a> du fichier <a class="el" href="gamecore_8cpp_source.html">gamecore.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a5710f1fc62dc9f1062ed7376efe359bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5710f1fc62dc9f1062ed7376efe359bc">&#9670;&nbsp;</a></span>SCENE_HEIGHT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const int SCENE_HEIGHT = 1080</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="gamecore_8cpp_source.html#l00036">36</a> du fichier <a class="el" href="gamecore_8cpp_source.html">gamecore.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aa4ab1c2c315cd91a2dfe1f5a78c45445"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa4ab1c2c315cd91a2dfe1f5a78c45445">&#9670;&nbsp;</a></span>SCENE_WIDTH</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const int SCENE_WIDTH = 1280</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Fichier qui contient toute la logique du jeu.</p>
+<dl class="section author"><dt>Auteur</dt><dd>JCO </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>Février 2014 </dd></dl>
+
+<p class="definition">Définition à la ligne <a class="el" href="gamecore_8cpp_source.html#l00035">35</a> du fichier <a class="el" href="gamecore_8cpp_source.html">gamecore.cpp</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré le Lundi 21 Septembre 2020 14:29:09 pour GameFramework par &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.14
+</small></address>
+</body>
+</html>
