@@ -11,9 +11,11 @@
 #include <QDebug>
 #include <QSettings>
 
+#include "bouncingspritehandler.h"
 #include "gamescene.h"
 #include "gamecanvas.h"
 #include "resources.h"
+#include "sprite.h"
 #include "utilities.h"
 
 const int SCENE_WIDTH = 1280;
@@ -34,7 +36,10 @@ GameCore::GameCore(GameCanvas* pGameCanvas, QObject* pParent) : QObject(pParent)
     m_pScene->addRect(m_pScene->sceneRect(), QPen(Qt::white));
 
     // Instancier et initialiser les sprite ici :
-    // ...
+    Sprite* pPlate = new Sprite(GameFramework::imagesPath() + "plate.png");
+    m_pScene->addSpriteToScene(pPlate);
+    m_pPlate = pPlate;
+    pPlate->setPos((m_pScene->width()/2.0)-(pPlate->width()/2.0), m_pScene->height()-100.0);
 
 
     // Démarre le tick pour que les animations qui en dépendent fonctionnent correctement.
@@ -56,12 +61,21 @@ GameCore::~GameCore() {
 void GameCore::keyPressed(int key) {
     emit notifyKeyPressed(key);
 
+    switch(key) {
+    case Qt::Key_Left:
+        m_pPlate->setX(m_pPlate->x() - 20);
+        break;
+    case Qt::Key_Right:
+        m_pPlate->setX(m_pPlate->x() + 20);
+        break;
+    }
 }
 
 //! Traite le relâchement d'une touche.
 //! \param key Numéro de la touche (voir les constantes Qt)
 void GameCore::keyReleased(int key) {
     emit notifyKeyReleased(key);
+
 
 }
 
