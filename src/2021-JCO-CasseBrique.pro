@@ -17,9 +17,11 @@ TEMPLATE = app
 #DEFINES += DEPLOY # Pour une compilation dans un but de déploiement
 
 SOURCES += main.cpp\
+    blueball.cpp \
     keytickhandler.cpp \
         mainfrm.cpp \
     gamescene.cpp \
+    plate.cpp \
     player.cpp \
     randommovetickhandler.cpp \
     sprite.cpp \
@@ -29,7 +31,6 @@ SOURCES += main.cpp\
     utilities.cpp \
     gamecanvas.cpp \
     walkingman.cpp \
-    blueball.cpp \
     spinningpinwheel.cpp \
     spritetickhandler.cpp \
     bouncingspritehandler.cpp \
@@ -37,8 +38,10 @@ SOURCES += main.cpp\
     automaticwalkinghandler.cpp
 
 HEADERS  += mainfrm.h \
+    blueball.h \
     gamescene.h \
     keytickhandler.h \
+    plate.h \
     player.h \
     randommovetickhandler.h \
     sprite.h \
@@ -48,7 +51,6 @@ HEADERS  += mainfrm.h \
     utilities.h \
     gamecanvas.h \
     walkingman.h \
-    blueball.h \
     spinningpinwheel.h \
     spritetickhandler.h \
     bouncingspritehandler.h \

@@ -1,8 +1,8 @@
 /**
   \file
   \brief    Définition de la classe ManualWalkingHandler.
-  \author   JCO
-  \date     septembre 2018
+  \author   CHENGAE
+  \date     Octobre 2021
 */
 #include "manualwalkinghandler.h"
 

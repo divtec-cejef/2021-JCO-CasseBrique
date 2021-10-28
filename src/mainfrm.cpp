@@ -1,8 +1,8 @@
 /**
   \file
   \brief    Définition de la classe MainFrm.
-  \author   JCO
-  \date     janvier 2014
+  \author   CHENGAE
+  \date     Octobre 2021
   \version  1.0
 */
 #include "mainfrm.h"

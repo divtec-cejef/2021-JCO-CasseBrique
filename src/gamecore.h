@@ -7,6 +7,7 @@
 #ifndef GAMECORE_H
 #define GAMECORE_H
 
+#include <QCursor>
 #include <QObject>
 #include <QPointF>
 
@@ -42,6 +43,10 @@ signals:
     void notifyKeyReleased(int key);
 
 private:
+    QCursor m_pCursor;
+
+    void setupPlate(QString color);
+
     GameCanvas* m_pGameCanvas;
     GameScene* m_pScene;
 

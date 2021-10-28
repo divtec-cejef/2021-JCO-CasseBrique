@@ -1,8 +1,8 @@
 /**
   \file
   \brief    Déclaration de la classe BlueBall.
-  \author   JCO
-  \date     septembre 2018
+  \author   CHENGAE
+  \date     Octobre 2021
 */
 #ifndef BLUEBALL_H
 #define BLUEBALL_H
@@ -27,8 +27,7 @@
 //!   de la balle (avec translated()) pour vérifier qu'elle soit toujours
 //!   incluse dans les limites de la surface de la scène.
 //!
-class BlueBall : public Sprite
-{
+class BlueBall : public Sprite {
     // Nécessaire de déclarer cette macro pour que la classe puisse
     // bénéficier du mécanisme de signaux/slots.
     Q_OBJECT

@@ -1,8 +1,8 @@
 /**
   \file
   \brief    Méthodes utilitaires diverses.
-  \author   JCO
-  \date     janvier 2015
+  \author   CHENGAE
+  \date     Octobre 2021
   \version  1.0
 */
 #ifndef UTILITIES_H

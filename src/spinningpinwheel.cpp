@@ -1,8 +1,8 @@
 /**
   \file
   \brief    Déclaration de la classe SpinningPinwheel.
-  \author   JCO
-  \date     septembre 2018
+  \author   CHENGAE
+  \date     Octobre 2021
 */
 #include "spinningpinwheel.h"
 

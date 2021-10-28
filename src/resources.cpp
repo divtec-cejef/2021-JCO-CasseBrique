@@ -1,8 +1,8 @@
 /**
   \file
   \brief    Méthodes utilitaires permettant d'accéder aux ressources.
-  \author   JCO
-  \date     février 2014
+  \author   CHENGAE
+  \date     Octobre 2021
   \version  1.0
 */
 #include "resources.h"

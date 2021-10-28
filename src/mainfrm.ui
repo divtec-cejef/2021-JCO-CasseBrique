@@ -11,7 +11,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Game Framework</string>
+   <string>Casse Brique</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>../res/images/Logo_CasseBrique.ico</normaloff>../res/images/Logo_CasseBrique.ico</iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>

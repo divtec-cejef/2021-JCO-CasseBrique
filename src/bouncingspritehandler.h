@@ -1,8 +1,8 @@
 /**
   \file
   \brief    Déclaration de la classe BouncingSpriteHandler.
-  \author   JCO
-  \date     septembre 2018
+  \author   CHENGAE
+  \date     Octobre 2021
 */
 #ifndef BOUNCINGSPRITEHANDLER_H
 #define BOUNCINGSPRITEHANDLER_H

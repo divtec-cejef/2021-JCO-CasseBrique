@@ -1,8 +1,8 @@
 /**
-  Déclaration de la classe GameView, qui affiche une scène.
-
-  @author   JCO
-  @date     Janvier 2015
+  \file
+  \brief    Déclaration de la classe GameView, qui affiche une scène.
+  \author   CHENGAE
+  \date     Octobre 2021
  */
 #ifndef GAMEVIEW_H
 #define GAMEVIEW_H

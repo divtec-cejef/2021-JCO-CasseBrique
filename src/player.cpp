@@ -1,3 +1,9 @@
+/**
+  \file
+  \brief    Déclaration de la classe Player.
+  \author   CHENGAE
+  \date     Octobre 2021
+*/
 #include "player.h"
 #include "gamescene.h"
 

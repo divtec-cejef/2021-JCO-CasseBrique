@@ -1,8 +1,8 @@
 /**
   \file
   \brief    Définition de la classe Sprite.
-  \author   JCO
-  \date     janvier 2014
+  \author   CHENGAE
+  \date     Octobre 2021
 */
 #include "sprite.h"
 

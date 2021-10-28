@@ -1,8 +1,8 @@
 /**
   \file
   \brief    Déclaration de la classe GameCanvas.
-  \author   JCO
-  \date     janvier 2015
+  \author   CHENGAE
+  \date     Octobre 2021
 */
 #include "gamecanvas.h"
 
@@ -190,10 +190,11 @@ void GameCanvas::keyPressed(QKeyEvent* pKeyEvent) {
 //! Gère le relâchement d'une touche du clavier.
 void GameCanvas::keyReleased(QKeyEvent* pKeyEvent) {
     // Supprimer ce premier test si la répétition de touche doit être signalée.
+    /*
     if (pKeyEvent->isAutoRepeat())
         pKeyEvent->ignore();
-    else {
-        m_pGameCore->keyReleased(pKeyEvent->key());
+    else */{
+        m_pGameCore->keyPressed(pKeyEvent->key());
         pKeyEvent->accept();
     }
 }
