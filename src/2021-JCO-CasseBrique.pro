@@ -1,6 +1,6 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2014-01-31T13:38:06
+# Project created by QtCreator 2021-10-29T13:38:06
 #
 #-------------------------------------------------
 
@@ -8,7 +8,7 @@ QT       += core gui svg
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = GameFramework
+TARGET = 2021-JCO-CasseBrique
 TEMPLATE = app
 
 #DEFINES += DEBUG_SPRITE_COUNT

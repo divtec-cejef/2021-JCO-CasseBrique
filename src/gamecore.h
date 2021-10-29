@@ -43,14 +43,20 @@ signals:
     void notifyKeyReleased(int key);
 
 private:
-    QCursor m_pCursor;
-
     void setupPlate(QString color);
+    void setupBall(QString color);
+    void setupBoucingArea();
 
     GameCanvas* m_pGameCanvas;
     GameScene* m_pScene;
 
     Sprite* m_pPlate;
+    Sprite* m_pBall;
+
+    QString m_plateSize;
+    QString m_plateColor;
+    QString m_ballColor;
+    bool m_mouseButtonPressed;
 
 private slots:
 
