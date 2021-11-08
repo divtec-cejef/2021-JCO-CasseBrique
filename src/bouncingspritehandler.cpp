@@ -6,13 +6,14 @@
 */
 #include "bouncingspritehandler.h"
 
-#include "sprite.h"
-#include "gamescene.h"
-
 #include <QDebug>
 #include <cmath>
 
-const int INITIAL_VELOCITY = 200;
+#include "sprite.h"
+#include "gamescene.h"
+#include "gamecore.h"
+
+const int INITIAL_VELOCITY = 100;
 
 //! Constructeur.
 //! \param pParentSprite Sprite dont le déplacement doit être géré.
@@ -69,7 +70,16 @@ void BouncingSpriteHandler::tick(long long elapsedTimeInMilliseconds) {
         else
             m_spriteVelocity.setY(ballFromTop ? -INITIAL_VELOCITY : INITIAL_VELOCITY);
 
+
         spriteMovement = m_spriteVelocity * elapsedTimeInMilliseconds / 1000.;
+
+        // Parcours la liste et supprime ceux qui sont entrés en collision
+        for(int i = 0; i < collidingSprites.size(); i++) {
+            if (collidingSprites.at(i)->data(0).toString() == "brick-a-detruire") {
+                collidingSprites.at(i)->deleteLater();
+            }
+        }
+
     }
 
     m_pParentSprite->setPos(m_pParentSprite->pos() + spriteMovement);

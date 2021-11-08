@@ -21,8 +21,8 @@ class Sprite;
 //! Depuis le gestionnaire, il est possible d'accéder au Sprite en question avec
 //! l'attribut m_pParentSprite.
 //!
-class SpriteTickHandler
-{
+class SpriteTickHandler {
+
 public:
     SpriteTickHandler(Sprite* pParentSprite = nullptr);
     virtual ~SpriteTickHandler();

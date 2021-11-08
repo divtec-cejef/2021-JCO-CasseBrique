@@ -6,14 +6,15 @@
  */
 #include "gamecore.h"
 
-#include <cmath>
-
-#include <QCursor>
+// #include <QColor>
+// #include <QtCore>
+// #include <QCoreApplication>
+// #include <QCursor>
 #include <QDebug>
 #include <QPainter>
 #include <QSettings>
+// #include <QString>
 
-#include "blueball.h"
 #include "bouncingspritehandler.h"
 #include "gamescene.h"
 #include "gamecanvas.h"
@@ -22,9 +23,11 @@
 #include "sprite.h"
 #include "utilities.h"
 
+// Initialisation des constantes.
 const int SCENE_WIDTH = 1280;
-const int SCENE_HEIGHT = 1080;
-
+const int SCENE_HEIGHT = SCENE_WIDTH / GameFramework::screenRatio();
+const int BORDER_SIZE = 10;
+const QPointF BOUNCING_AREA_SIZE(SCENE_WIDTH, SCENE_HEIGHT);
 const QPointF BOUNCING_AREA_POS(0, 0);
 
 //! Initialise le contrôleur de jeu.
@@ -35,77 +38,56 @@ GameCore::GameCore(GameCanvas* pGameCanvas, QObject* pParent) : QObject(pParent)
     // Mémorise l'accès au canvas (qui gère le tick et l'affichage d'une scène)
     m_pGameCanvas = pGameCanvas;
 
-    // Créé la scène de base et indique au canvas qu'il faut l'afficher.
-    m_pScene = pGameCanvas->createScene(0, 0, SCENE_WIDTH, SCENE_WIDTH / GameFramework::screenRatio());
-    pGameCanvas->setCurrentScene(m_pScene);
+    // Trace un rectangle tout autour des limites de la scène.
+    m_pSceneGame->addRect(m_pSceneGame->sceneRect(), QPen(Qt::white));
 
-    // Trace un rectangle blanc tout autour des limites de la scène.
-    m_pScene->addRect(m_pScene->sceneRect(), QPen(Qt::white));
-
-    //Initialise les variables
-    m_plateSize = "3";
-    m_mouseButtonPressed = false;
-    m_plateColor = "White";
-    m_ballColor = "White";
-
-    // Instancier et initialiser les sprite ici :
-    Sprite* pBrickRed = new Sprite(GameFramework::imagesPath() + "brickRed.png");
-    m_pScene->addSpriteToScene(pBrickRed);
-    pBrickRed->setPos((m_pScene->width() / 2.0) - (pBrickRed->width() / 2.0), 100.0);
-
-    Sprite* pBrickGreen = new Sprite(GameFramework::imagesPath() + "brickGreen.png");
-    m_pScene->addSpriteToScene(pBrickGreen);
-    pBrickGreen->setPos((m_pScene->width() / 2.0) - (pBrickGreen->width() / 2.0) - 50.0, 100.0);
-
-    Sprite* pBrickBlue = new Sprite(GameFramework::imagesPath() + "brickBlue.png");
-    m_pScene->addSpriteToScene(pBrickBlue);
-    pBrickBlue->setPos((m_pScene->width() / 2.0) - (pBrickBlue->width() / 2.0) + 50.0, 100.0);
-
-    // Création du plateau.
-    setupPlate(m_plateColor);
+    // Création des différentes scène de jeu.
+    createSceneGame();
 
     // Création des murs.
     setupBoucingArea();
 
+    // Création des blocs à détruire.
+    createBricks();
+
+    // Création du plateau.
+    createPlate();
+
     // Création de la balle.
-    setupBall(m_ballColor);
+    createBall();
+
+    //Définis la scène actuelle du jeu.
+    pGameCanvas->setCurrentScene(m_pSceneGame);
 
     // Démarre le tick pour que les animations qui en dépendent fonctionnent correctement.
-    // Attention : il est important que l'enclenchement du tick soit fait vers la fin de cette fonction,
-    // sinon le temps passé jusqu'au premier tick (ElapsedTime) peut être élevé et provoquer de gros
-    // déplacements, surtout si le déboggueur est démarré.
     m_pGameCanvas->startTick();
 }
 
 //! Destructeur de GameCore : efface les scènes
 GameCore::~GameCore() {
-    delete m_pScene;
-    m_pScene = nullptr;
+    delete m_pSceneGame;
+    m_pSceneGame = nullptr;
+}
+
+//! Cadence.
+//! Gère le déplacement de la Terre qui tourne en cercle.
+//! \param elapsedTimeInMilliseconds  Temps écoulé depuis le dernier appel.
+void GameCore::tick(long long elapsedTimeInMilliseconds) {
+
+    if (m_isWaiting) {
+        m_pBall->setPos(m_pPlate->left() + ((m_pPlate->width() / 2.0) - (m_pBall->width() / 2.0)), m_pPlate->top() - m_pBall->height());
+
+        if (m_onClick) {
+            m_isWaiting = false;
+            m_pBall->registerForTick();
+        }
+    }
 }
 
 //! Traite la pression d'une touche.
 //! \param key Numéro de la touche (voir les constantes Qt)
-//!
 void GameCore::keyPressed(int key) {
     emit notifyKeyPressed(key);
-
-    switch(key) {
-    case Qt::Key_Space:
-        setupBall(m_ballColor);
-        break;
-    case Qt::Key_W:
-        m_ballColor = "White";
-        break;
-    case Qt::Key_R:
-        m_ballColor = "Red";
-        break;
-    case Qt::Key_G:
-        m_ballColor = "Green";
-        break;
-    case Qt::Key_B:
-        m_ballColor = "Blue";
-        break;
-    }
 }
 
 //! Traite le relâchement d'une touche.
@@ -114,37 +96,11 @@ void GameCore::keyReleased(int key) {
     emit notifyKeyReleased(key);
 }
 
-//! Cadence.
-//! Gère le déplacement de la Terre qui tourne en cercle.
-//! \param elapsedTimeInMilliseconds  Temps écoulé depuis le dernier appel.
-void GameCore::tick(long long elapsedTimeInMilliseconds) {
-
-}
-
 //! La souris a été déplacée.
 //! Pour que cet événement soit pris en compte, la propriété MouseTracking de GameView
 //! doit être enclenchée avec GameCanvas::startMouseTracking().
 void GameCore::mouseMoved(QPointF newMousePosition) {
     emit notifyMouseMoved(newMousePosition);
-
-    qreal positionX = m_pPlate->width()/2.0; //Centre du plateau
-
-    // Le plateau suit la souris uniquement à l'interieur du la zone de jeux et
-    // le plateau s'arrète au bordure de la zone.
-    if (newMousePosition.x() > 0 && newMousePosition.x() < m_pScene->width() &&
-            newMousePosition.y() > 0 && newMousePosition.y() < m_pScene->height()) {
-
-        if (newMousePosition.x() > m_pScene->width() - m_pPlate->width()/2.0)
-            positionX = m_pScene->width() - m_pPlate->width()/2.0;
-
-        else if (newMousePosition.x() > m_pPlate->width()/2.0)
-            positionX = newMousePosition.x();
-
-        m_pPlate->setPos(positionX - m_pPlate->width()/2.0, m_pScene->height() - 100);
-
-        if (m_mouseButtonPressed == false)
-            m_pBall->setX(positionX - (m_pBall->width()/2.0));
-    }
 }
 
 //! Traite l'appui sur un bouton de la souris.
@@ -152,8 +108,7 @@ void GameCore::mouseButtonPressed(QPointF mousePosition, Qt::MouseButtons button
     emit notifyMouseButtonPressed(mousePosition, buttons);
 
     if (buttons.testFlag(Qt::LeftButton)) {
-        m_pBall->registerForTick();
-        m_mouseButtonPressed = true;
+        m_onClick = true;
     }
 }
 
@@ -162,61 +117,87 @@ void GameCore::mouseButtonReleased(QPointF mousePosition, Qt::MouseButtons butto
     emit notifyMouseButtonReleased(mousePosition, buttons);
 }
 
-//! Met en place le plateau.
-//! \param color couleur du plateau.
-void GameCore::setupPlate(QString color) {
-    Sprite* pPlate = new Sprite(GameFramework::imagesPath() + "plate" + color + m_plateSize + ".png");
-    m_pScene->addSpriteToScene(pPlate);
-    m_pPlate = pPlate;
-    pPlate->setPos((m_pScene->width()/2.0)-(pPlate->width()/2.0), m_pScene->height()-100.0);
-
-    /*
-    for (int FrameNumber = 1; FrameNumber <= 5; ++FrameNumber)  {
-        pPlate->addAnimationFrame(QString(GameFramework::imagesPath() + "plate" + color + "%" + m_plateSize + ".png").arg(FrameNumber));
-    }
-    pPlate->setAnimationSpeed(1000);  // Passe à la prochaine image de la marche toutes les 100 ms
-    pPlate->startAnimation();
-    */
+//! Désincrémente le compteur si une brique est détruite.
+void GameCore::onSpriteDestroyed() {
+    m_counterBricks--;
 }
 
+
+//! Met en place le plateau.
+void GameCore::createPlate() {
+    Plate* pPlate = new Plate;
+    pPlate->setPos((m_pSceneGame->width()/2.0)-(pPlate->width()/2.0), m_pSceneGame->height()-100.0);
+    m_pSceneGame->addSpriteToScene(pPlate);
+    connect(this, &GameCore::notifyKeyPressed, pPlate, &Plate::keyPressed);
+    connect(this, &GameCore::notifyKeyReleased, pPlate, &Plate::keyReleased);
+    connect(this, &GameCore::notifyMouseMoved, pPlate, &Plate::mouseMoved);
+    m_pPlate = pPlate;
+}
+
+//! Met en place les bordures autour de la zone de jeu.
 void GameCore::setupBoucingArea() {
-    const int BORDER_SIZE = 10;
-    const QPointF BOUNCING_AREA_SIZE(m_pScene->width(), m_pScene->height());
 
-    // Création des briques de délimitation de la zone et placement
-    QPixmap smallBrick(GameFramework::imagesPath() + "border.png");
-    smallBrick = smallBrick.scaled(BORDER_SIZE, BORDER_SIZE);
+    // Création des bordures de délimitation de la zone et placement
+    QPixmap smallBorder(GameFramework::imagesPath() + "border.png");
+    smallBorder = smallBorder.scaled(BORDER_SIZE, BORDER_SIZE);
 
-    // Création d'une image faite d'une suite horizontale de briques
+    // Création d'une image faite d'une suite horizontale de bordure
     QPixmap horizontalWall(BOUNCING_AREA_SIZE.x() + (2 * BORDER_SIZE), BORDER_SIZE);
     QPainter painterHW(&horizontalWall);
     for (int col = 0; col < (BOUNCING_AREA_SIZE.x() + (2 * BORDER_SIZE) / BORDER_SIZE); col++)
-        painterHW.drawPixmap(col * BORDER_SIZE,0, smallBrick);
+        painterHW.drawPixmap(col * BORDER_SIZE,0, smallBorder);
 
-    // Création d'une image faite d'une suite verticale de briques
+    // Création d'une image faite d'une suite verticale de bordure
     QPixmap verticalWall(BORDER_SIZE, BOUNCING_AREA_SIZE.y());
     QPainter painterVW(&verticalWall);
     for (int col = 0; col < (BOUNCING_AREA_SIZE.y() / BORDER_SIZE); col++)
-        painterVW.drawPixmap(0, col * BORDER_SIZE, smallBrick);
+        painterVW.drawPixmap(0, col * BORDER_SIZE, smallBorder);
 
-    // Ajout de 4 sprites (utilisant les murs horizontaux et verticaux) pour délimiter
-    // une zone de rebond.
-    m_pScene->addSpriteToScene(new Sprite(horizontalWall), BOUNCING_AREA_POS.x() - BORDER_SIZE, BOUNCING_AREA_POS.y() - BORDER_SIZE);
-    //m_pScene->addSpriteToScene(new Sprite(horizontalWall), BOUNCING_AREA_POS.x() - BORDER_SIZE, BOUNCING_AREA_SIZE.y());
+    // Ajout de 3 sprites (utilisant les murs horizontaux et verticaux) pour délimiter une zone de rebond.
+    m_pSceneGame->addSpriteToScene(new Sprite(horizontalWall), BOUNCING_AREA_POS.x() - BORDER_SIZE, BOUNCING_AREA_POS.y() - BORDER_SIZE);
+    m_pSceneGame->addSpriteToScene(new Sprite(verticalWall), BOUNCING_AREA_POS.x() - BORDER_SIZE, BOUNCING_AREA_POS.y());
+    m_pSceneGame->addSpriteToScene(new Sprite(verticalWall), BOUNCING_AREA_POS.x() + BOUNCING_AREA_SIZE.x(), BOUNCING_AREA_POS.y());
 
-    m_pScene->addSpriteToScene(new Sprite(verticalWall), BOUNCING_AREA_POS.x() - BORDER_SIZE, BOUNCING_AREA_POS.y());
-    m_pScene->addSpriteToScene(new Sprite(verticalWall), BOUNCING_AREA_POS.x() + BOUNCING_AREA_SIZE.x(), BOUNCING_AREA_POS.y());
+
 }
 
 //! Met en place la balle qui rebondit.
-//! \param color couleur de la balle.
-void GameCore::setupBall(QString color) {
-    Sprite* pBall = new Sprite(GameFramework::imagesPath() + "ball" + color + ".png");
-    m_pScene->addSpriteToScene(pBall);
+void GameCore::createBall() {
+    Sprite* pBall = new Sprite(GameFramework::imagesPath() + "ball.png");
+    m_pSceneGame->addSpriteToScene(pBall);
     m_pBall = pBall;
     pBall->setTickHandler(new BouncingSpriteHandler);
-    pBall->setPos(((m_pScene->width() / 2.0) - (pBall->width() / 2.0)), m_pPlate->top() - pBall->height());
-
-    //pBall->registerForTick();
+    pBall->setPos(((m_pSceneGame->width() / 2.0) - (pBall->width() / 2.0)), m_pPlate->top() - pBall->height());
 }
 
+//! Créer les briques à détruire.
+void GameCore::createBricks() {
+    const QPoint BRICK_SIZE(50, 20);
+    int line = 2;
+    int column = 8;
+
+    m_counterBricks = line * column;
+
+    for (int j = 0; j < line; j++) {
+
+        for (int i = 0; i < column; i++) {
+            // Ajout d'un sprite (brique à casser) et lui attribut un "id".
+            Sprite* pBrickSprite = new Sprite(GameFramework::imagesPath() + "brick.png");
+            m_pSceneGame->addSpriteToScene(pBrickSprite);
+            pBrickSprite->setPos(((m_pSceneGame->width() - (column * BRICK_SIZE.x())) / 2) + m_spaceLines, 50 + m_spaceColumns);
+            m_spaceLines += BRICK_SIZE.x();
+            pBrickSprite->setData(0, "brick-a-detruire");
+            connect(pBrickSprite, &Sprite::destroyed, this, &GameCore::onSpriteDestroyed);
+        }
+        // Réinitialise les valeurs et ajoutes une marge de 65 pour l'espacement des blocs.
+        m_spaceLines = 0;
+        m_spaceColumns += BRICK_SIZE.y();
+    }
+}
+
+
+//! Création de la scène de jeu.
+void GameCore::createSceneGame() {
+    // Créé la scène de base et indique au canvas qu'il faut l'afficher.
+    m_pSceneGame = m_pGameCanvas->createScene(0, 0, SCENE_WIDTH, SCENE_HEIGHT);
+}

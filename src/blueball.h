@@ -9,7 +9,7 @@
 
 #include "sprite.h"
 
-//! \brief Classe qui gère la balle bleue.
+//! \brief Classe qui gère la balle bleu    e.
 //!
 //! Cette classe démontre les fonctionnalités suivantes :
 //!
@@ -28,9 +28,9 @@
 //!   incluse dans les limites de la surface de la scène.
 //!
 class BlueBall : public Sprite {
-    // Nécessaire de déclarer cette macro pour que la classe puisse
-    // bénéficier du mécanisme de signaux/slots.
-    Q_OBJECT
+        // Nécessaire de déclarer cette macro pour que la classe puisse
+        // bénéficier du mécanisme de signaux/slots.
+        Q_OBJECT
 
 public:
     BlueBall(QGraphicsItem* pParent = nullptr);

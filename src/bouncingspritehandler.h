@@ -14,8 +14,8 @@
 
 #include "spritetickhandler.h"
 
-class BouncingSpriteHandler : public SpriteTickHandler
-{
+class BouncingSpriteHandler : public SpriteTickHandler {
+
 public:
     BouncingSpriteHandler(Sprite* pParentSprite = nullptr);
 

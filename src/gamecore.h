@@ -7,21 +7,20 @@
 #ifndef GAMECORE_H
 #define GAMECORE_H
 
-#include <QCursor>
 #include <QObject>
 #include <QPointF>
+#include <QString>
 
 class GameCanvas;
 class GameScene;
 class Sprite;
 
-//! \brief Classe qui gère la logique du jeu.
-//!
+//! Classe qui gère la logique du jeu.
 //! Dans son état actuel, cette classe crée une scène vide, délimite
 //! sa surface avec une ligne blanche puis démarre la cadence du jeu.
-class GameCore : public QObject
-{
+class GameCore : public QObject {
     Q_OBJECT
+
 public:
     explicit GameCore(GameCanvas* pGameCanvas, QObject *parent = nullptr);
     ~GameCore();
@@ -36,30 +35,40 @@ public:
     void tick(long long elapsedTimeInMilliseconds);
 
 signals:
+    void notifyKeyPressed(int key);
+    void notifyKeyReleased(int key);
     void notifyMouseMoved(QPointF newMousePosition);
     void notifyMouseButtonPressed(QPointF mousePosition, Qt::MouseButtons buttons);
     void notifyMouseButtonReleased(QPointF mousePosition, Qt::MouseButtons buttons);
-    void notifyKeyPressed(int key);
-    void notifyKeyReleased(int key);
 
 private:
-    void setupPlate(QString color);
-    void setupBall(QString color);
+    GameCanvas* m_pGameCanvas = nullptr;
+    GameScene* m_pSceneGame = nullptr;
+
+    Sprite* m_pPlate = nullptr;
+    Sprite* m_pBall = nullptr;
+    Sprite* m_pBricks = nullptr;
+
+    bool m_onClick = false;
+    bool m_isDead = false;
+    bool m_isRestart = false;
+    bool m_isWaiting = true;
+
+    int m_spaceLines = 0;
+    int m_spaceColumns = 0;
+    int m_counterBricks = 0;
+
+    void createSceneWin();
+    void createSceneLoss();
+    void createSceneGame();
+    void createSceneMenu();
     void setupBoucingArea();
-
-    GameCanvas* m_pGameCanvas;
-    GameScene* m_pScene;
-
-    Sprite* m_pPlate;
-    Sprite* m_pBall;
-
-    QString m_plateSize;
-    QString m_plateColor;
-    QString m_ballColor;
-    bool m_mouseButtonPressed;
+    void createBricks();
+    void createPlate();
+    void createBall();
 
 private slots:
-
+    void onSpriteDestroyed();
 };
 
 

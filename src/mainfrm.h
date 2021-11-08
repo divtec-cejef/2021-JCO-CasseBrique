@@ -22,8 +22,7 @@ class GameCanvas;
 //! une instance de GameView.
 //! Cette fenêtre gère une instance de GameCanvas, qui est en charge
 //! de la cadence du jeu.
-class MainFrm : public QWidget
-{
+class MainFrm : public QWidget {
     Q_OBJECT
 
 public:
