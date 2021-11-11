@@ -35,7 +35,7 @@ void SpinningPinwheel::onMouseMove(QPointF newMousePosition) {
 //! les ajouter au sprite.
 void SpinningPinwheel::configureAnimation() {
     // Chargement de la spritesheet
-    QImage spriteSheet(GameFramework::imagesPath() + "spinningwheel.png");
+    QImage spriteSheet(BrickBreaker::imagesPath() + "spinningwheel.png");
 
     // Découpage de la spritesheet
     for (int frameIndex = 0; frameIndex < FRAME_COUNT; frameIndex++) {

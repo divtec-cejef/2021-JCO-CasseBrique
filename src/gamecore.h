@@ -7,6 +7,8 @@
 #ifndef GAMECORE_H
 #define GAMECORE_H
 
+#include <QGraphicsSimpleTextItem>
+#include <QList>
 #include <QObject>
 #include <QPointF>
 #include <QString>
@@ -35,40 +37,66 @@ public:
     void tick(long long elapsedTimeInMilliseconds);
 
 signals:
-    void notifyKeyPressed(int key);
-    void notifyKeyReleased(int key);
     void notifyMouseMoved(QPointF newMousePosition);
     void notifyMouseButtonPressed(QPointF mousePosition, Qt::MouseButtons buttons);
     void notifyMouseButtonReleased(QPointF mousePosition, Qt::MouseButtons buttons);
+    void notifyKeyPressed(int key);
+    void notifyKeyReleased(int key);
+
+    void notifyOnStart();
+    void notifyOnPause();
+    void notifyOnResume();
 
 private:
+    void createSceneStart();
+    void createSceneGame();
+    void createSceneMenu();
+    void createSceneWin();
+    void createSceneLoss();
+    void createButton();
+    void createText();
+
+    void setupBoucingArea();
+    void createBricks();
+    void createPlate();
+    void createBall();
+
+
     GameCanvas* m_pGameCanvas = nullptr;
+    GameScene* m_pSceneStart = nullptr;
     GameScene* m_pSceneGame = nullptr;
+    GameScene* m_pSceneMenu = nullptr;
+    GameScene* m_pSceneWin = nullptr;
+    GameScene* m_pSceneLoss = nullptr;
+
+    QGraphicsSimpleTextItem* m_pTextGameLife = nullptr;
+    QGraphicsSimpleTextItem* m_pTextGameBrick = nullptr;
+
 
     Sprite* m_pPlate = nullptr;
     Sprite* m_pBall = nullptr;
-    Sprite* m_pBricks = nullptr;
+
+    Sprite* m_pButtonStart = nullptr;
+    Sprite* m_pButtonResume = nullptr;
+    Sprite* m_pButtonNewGame = nullptr;
+    Sprite* m_pButtonExit = nullptr;
+
 
     bool m_onClick = false;
     bool m_isDead = false;
     bool m_isRestart = false;
     bool m_isWaiting = true;
 
+
+    int m_playerLife = 3;
     int m_spaceLines = 0;
     int m_spaceColumns = 0;
+    int m_counterBall = 0;
     int m_counterBricks = 0;
 
-    void createSceneWin();
-    void createSceneLoss();
-    void createSceneGame();
-    void createSceneMenu();
-    void setupBoucingArea();
-    void createBricks();
-    void createPlate();
-    void createBall();
-
 private slots:
-    void onSpriteDestroyed();
+    void onBallDestroyed();
+    void onBrickDestroyed();
 };
 
 

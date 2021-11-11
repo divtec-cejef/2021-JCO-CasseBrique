@@ -13,8 +13,9 @@
 //!
 //! Espace de noms contenant les fonctions utilitaires pour les ressources.
 //!
-namespace GameFramework {
+namespace BrickBreaker {
     QString resourcesPath();
     QString imagesPath();
+    QString imagesPath(QString subFolder);
 }
 #endif // RESOURCES_H

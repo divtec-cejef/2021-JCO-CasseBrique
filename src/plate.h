@@ -10,24 +10,26 @@
 #include "sprite.h"
 
 class Plate : public Sprite {
+    // Nécessaire de déclarer cette macro pour que la classe puisse
+    // bénéficier du mécanisme de signaux/slots.
+    Q_OBJECT
 
 public:
     Plate(QGraphicsItem* pParent = nullptr);
 
-    virtual void tick(long long elapsedTimeInMilliseconds);
+    void tick(long long elapsedTimeInMilliseconds);
 
 public slots:
-    void keyPressed(int key);
-    void keyReleased(int key);
-    void mouseMoved(QPointF newMousePosition);
+    void onKeyPressed(int key);
+    void onKeyReleased(int key);
+    void onMouseMoved(QPointF newMousePosition);
 
 private:
-    QPointF m_velocity;
-    bool m_keyLeftPressed  = false;
-    bool m_keyRightPressed = false;
-
     void updateVelocity();
-    void resetKeyState();
+
+    QPointF m_velocity;
+    bool m_keyLeftPressed;
+    bool m_keyRightPressed;
 };
 
 #endif // PLATE_H

@@ -24,9 +24,9 @@ public:
 
     void tick(long long elapsedTimeInMilliseconds);
 
+    QPointF getVelocity();
 private:
     QPointF m_spriteVelocity;
-
 };
 
 #endif // BOUNCINGSPRITEHANDLER_H

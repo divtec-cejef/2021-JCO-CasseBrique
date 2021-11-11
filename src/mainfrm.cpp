@@ -17,7 +17,7 @@ MainFrm::MainFrm(QWidget *pParent) : QWidget(pParent), ui(new Ui::MainFrm) {
     m_pGameCanvas = new GameCanvas(ui->grvGame);
 
     // Pour que la vue adapte sa taille à celle de la fenêtre
-    ui->grvGame->setFitToScreenEnabled(true);
+    // ui->grvGame->setFitToScreenEnabled(true);
 
     // Pour supprimer les marges de la zone de jeu
     // ui->verticalLayout->setContentsMargins(QMargins(0,0,0,0));

@@ -46,6 +46,7 @@ public:
     ~GameScene();
 
     void addSpriteToScene(Sprite* pSprite);
+    void addSpriteToScene(Sprite* pSprite, QPointF pos);
     void addSpriteToScene(Sprite* pSprite, double posX, double posY);
     void removeSpriteFromScene(Sprite* pSprite);
 

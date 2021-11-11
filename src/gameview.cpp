@@ -85,7 +85,5 @@ void GameView::init() {
     m_clipScene = false;
     m_clippingRectUpToDate = false;
 
-    setWindowState(Qt::WindowFullScreen);
-
     setViewportUpdateMode(QGraphicsView::FullViewportUpdate);
 }

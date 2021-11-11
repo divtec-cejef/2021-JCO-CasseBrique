@@ -17,8 +17,11 @@ TEMPLATE = app
 #DEFINES += DEPLOY # Pour une compilation dans un but de déploiement
 
 SOURCES += main.cpp\
-    blueball.cpp \
+    ball.cpp \
+    bonus.cpp \
+    brick.cpp \
     keytickhandler.cpp \
+    levelbuilder.cpp \
         mainfrm.cpp \
     gamescene.cpp \
     plate.cpp \
@@ -38,9 +41,12 @@ SOURCES += main.cpp\
     automaticwalkinghandler.cpp
 
 HEADERS  += mainfrm.h \
-    blueball.h \
+    ball.h \
+    bonus.h \
+    brick.h \
     gamescene.h \
     keytickhandler.h \
+    levelbuilder.h \
     plate.h \
     player.h \
     randommovetickhandler.h \

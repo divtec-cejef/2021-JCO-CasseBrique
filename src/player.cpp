@@ -114,7 +114,7 @@ void Player::updateBallVelocity()  {
 //! les ajouter au sprite.
 void Player::configureAnimation() {
     // Chargement de la spritesheet
-    QImage spriteSheet(GameFramework::imagesPath() + "player.png");
+    QImage spriteSheet(BrickBreaker::imagesPath() + "player.png");
 
     // Découpage de la spritesheet
     for (int animationIndex = 0; animationIndex < LINE_COUNT; animationIndex++) {

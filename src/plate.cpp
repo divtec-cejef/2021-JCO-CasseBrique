@@ -11,15 +11,17 @@
 #include "sprite.h"
 
 #include <QDebug>
-// #include <QGraphicsScale>
+#include <QGraphicsScale>
 
 //Déclaration des constantes.
-const int PLATE_VELOCITY = 40; // pixels par seconde
-const int PLATE_HEIGHT = 100; // pixels par seconde
+const int PLATE_VELOCITY = 150; // pixels par seconde
+const int PLATE_HEIGHT = 100;
 
 //! Construit et initialise un plateau.
 //! \param pParent  Objet propiétaire de cet objet.
-Plate::Plate(QGraphicsItem* pParent) : Sprite(GameFramework::imagesPath() + "plate.png", pParent) {
+Plate::Plate(QGraphicsItem* pParent) : Sprite(BrickBreaker::imagesPath() + "plate.png", pParent) {
+    m_keyLeftPressed  = false;
+    m_keyRightPressed = false;
     m_velocity = QPointF(0,0);
 }
 
@@ -31,20 +33,20 @@ void Plate::tick(long long elapsedTimeInMilliseconds) {
     // Calcul de la distance parcourue par le plateau, selon sa vitesse et le temps écoulé.
     QPointF distance = elapsedTimeInMilliseconds * m_velocity / 1000.;
 
-    // Positionne la bounding box de la balle à sa prochaine position.
-    QRectF nextSpriteRect = this->globalBoundingBox().translated(distance);
+    // Positionne la bounding box du plateau à sa prochaine position.
+    QRectF nextRect = this->globalBoundingBox().translated(distance);
 
     // Récupère tous les sprites de la scène que toucherait ce sprite à sa prochaine position
-    // auto collidingSprites = this->parentScene()->collidingSprites(nextSpriteRect);
+    auto collidingSprites = this->parentScene()->collidingSprites(nextRect);
 
-    //Supprimer le sprite lui-même, qui collisionne toujours avec sa boundingbox
-    // collidingSprites.removeAll(this);
+    // Supprimer le sprite lui-même, qui collisionne toujours avec sa boundingbox
+    collidingSprites.removeAll(this);
 
-    // bool collision = collidingSprites.isEmpty();
+    bool collision = collidingSprites.isEmpty();
 
     // Si la prochaine position reste dans les limites de la scène, le plateau
     // y est positionnée. Sinon, il reste sur place.
-    if (this->parentScene()->isInsideScene(nextSpriteRect))
+    if (this->parentScene()->isInsideScene(nextRect) || collision)
         this->setPos(this->pos() + distance);
 
 
@@ -52,7 +54,7 @@ void Plate::tick(long long elapsedTimeInMilliseconds) {
 
 //! Traite la pression d'une touche.
 //! \param key Numéro de la touche (voir les constantes Qt)
-void Plate::keyPressed(int key) {
+void Plate::onKeyPressed(int key) {
     switch (key) {
     // Si le joueur presse la flèche de gauche.
     case Qt::Key_Left:
@@ -70,7 +72,7 @@ void Plate::keyPressed(int key) {
 
 //! Traite le relâchement d'une touche.
 //! \param key Numéro de la touche (voir les constantes Qt)
-void Plate::keyReleased(int key) {
+void Plate::onKeyReleased(int key) {
     switch (key) {
     // Si le joueur relache la flèche de gauche.
     case Qt::Key_Left:
@@ -89,7 +91,7 @@ void Plate::keyReleased(int key) {
 //! La souris a été déplacée.
 //! Pour que cet événement soit pris en compte, la propriété MouseTracking de GameView
 //! doit être enclenchée avec GameCanvas::startMouseTracking().
-void Plate::mouseMoved(QPointF newMousePosition) {
+void Plate::onMouseMoved(QPointF newMousePosition) {
     qreal positionX = this->width()/2.0; //Centre du plateau
 
     // Le plateau suit la souris uniquement à l'interieur du la zone de jeux et
@@ -107,15 +109,6 @@ void Plate::mouseMoved(QPointF newMousePosition) {
     }
 }
 
-//! Remet à false l'état des boutons.
-void Plate::resetKeyState() {
-    m_keyLeftPressed  = false;
-    m_keyRightPressed = false;
-
-    updateVelocity();
-}
-
-
 //! Met à jours la vitesse du plateau.
 void Plate::updateVelocity() {
     int velocity = 0;
@@ -126,6 +119,6 @@ void Plate::updateVelocity() {
     if (m_keyRightPressed)
         velocity =  PLATE_VELOCITY;
 
-    m_velocity = QPoint(velocity, PLATE_HEIGHT);
+    m_velocity = QPoint(velocity, 0);
 }
 
