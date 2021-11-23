@@ -1,8 +1,8 @@
 /**
   \file
   \brief    Déclaration de la classe GameScene.
-  \author   JCO
-  \date     janvier 2014
+  \author   CHENGAE
+  \date     Octobre 2021
 */
 #ifndef GAMESCENE_H
 #define GAMESCENE_H
@@ -46,6 +46,7 @@ public:
     ~GameScene();
 
     void addSpriteToScene(Sprite* pSprite);
+    void addSpriteToScene(Sprite* pSprite, QPointF pos);
     void addSpriteToScene(Sprite* pSprite, double posX, double posY);
     void removeSpriteFromScene(Sprite* pSprite);
 

@@ -1,8 +1,8 @@
 /**
   \file
   \brief    Déclaration de la classe AutomaticWalkingHandler.
-  \author   JCO
-  \date     septembre 2018
+  \author   CHENGAE
+  \date     Octobre 2021
 */
 #ifndef AUTOMATICWALKINGHANDLER_H
 #define AUTOMATICWALKINGHANDLER_H

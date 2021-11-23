@@ -1,8 +1,8 @@
 /**
   \file
   \brief    Déclaration de la classe WalkingMan.
-  \author   JCO
-  \date     septembre 2018
+  \author   CHENGAE
+  \date     Octobre 2021
 */
 #ifndef WALKINGMAN_H
 #define WALKINGMAN_H

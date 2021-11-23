@@ -1,8 +1,8 @@
 /**
-  Déclaration de la classe GameView, qui affiche une scène.
-
-  @author   JCO
-  @date     Janvier 2015
+  \file
+  \brief    Déclaration de la classe GameView, qui affiche une scène.
+  \author   CHENGAE
+  \date     Octobre 2021
  */
 #include "gameview.h"
 
@@ -56,7 +56,6 @@ void GameView::resizeEvent(QResizeEvent* pEvent) {
     if (m_fitToScreen) {
         fitInView(sceneRect(), Qt::KeepAspectRatio);
     }
-
 }
 
 //! Si la scène doit être clippée, dessine en avant-plan des rectangles permettant
@@ -82,9 +81,9 @@ void GameView::drawForeground(QPainter* pPainter, const QRectF& rRect) {
 
 //! Initialise cette affichage.
 void GameView::init() {
-    m_fitToScreen = false;
+    m_fitToScreen = true;
     m_clipScene = false;
     m_clippingRectUpToDate = false;
 
-    //setViewportUpdateMode(QGraphicsView::FullViewportUpdate);
+    setViewportUpdateMode(QGraphicsView::FullViewportUpdate);
 }

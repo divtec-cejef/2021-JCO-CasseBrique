@@ -1,6 +1,6 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2014-01-31T13:38:06
+# Project created by QtCreator 2021-10-29T13:38:06
 #
 #-------------------------------------------------
 
@@ -8,7 +8,7 @@ QT       += core gui svg
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = GameFramework
+TARGET = 2021-JCO-CasseBrique
 TEMPLATE = app
 
 #DEFINES += DEBUG_SPRITE_COUNT
@@ -17,9 +17,14 @@ TEMPLATE = app
 #DEFINES += DEPLOY # Pour une compilation dans un but de déploiement
 
 SOURCES += main.cpp\
+    ball.cpp \
+    bonus.cpp \
+    brick.cpp \
     keytickhandler.cpp \
+    levelbuilder.cpp \
         mainfrm.cpp \
     gamescene.cpp \
+    plate.cpp \
     player.cpp \
     randommovetickhandler.cpp \
     sprite.cpp \
@@ -29,7 +34,6 @@ SOURCES += main.cpp\
     utilities.cpp \
     gamecanvas.cpp \
     walkingman.cpp \
-    blueball.cpp \
     spinningpinwheel.cpp \
     spritetickhandler.cpp \
     bouncingspritehandler.cpp \
@@ -37,8 +41,13 @@ SOURCES += main.cpp\
     automaticwalkinghandler.cpp
 
 HEADERS  += mainfrm.h \
+    ball.h \
+    bonus.h \
+    brick.h \
     gamescene.h \
     keytickhandler.h \
+    levelbuilder.h \
+    plate.h \
     player.h \
     randommovetickhandler.h \
     sprite.h \
@@ -48,7 +57,6 @@ HEADERS  += mainfrm.h \
     utilities.h \
     gamecanvas.h \
     walkingman.h \
-    blueball.h \
     spinningpinwheel.h \
     spritetickhandler.h \
     bouncingspritehandler.h \

@@ -1,8 +1,8 @@
 /**
   \file
   \brief    Déclaration de la classe GameCanvas.
-  \author   JCO
-  \date     janvier 2015
+  \author   CHENGAE
+  \date     Octobre 2021
 */
 #ifndef GAMECANVAS_H
 #define GAMECANVAS_H

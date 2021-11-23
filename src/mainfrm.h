@@ -1,8 +1,8 @@
 /**
   \file
   \brief    Déclaration de la classe MainFrm.
-  \author   JCO
-  \date     janvier 2014
+  \author   CHENGAE
+  \date     Octobre 2021
   \version  1.0
 */
 #ifndef WIDGET_H
@@ -22,8 +22,7 @@ class GameCanvas;
 //! une instance de GameView.
 //! Cette fenêtre gère une instance de GameCanvas, qui est en charge
 //! de la cadence du jeu.
-class MainFrm : public QWidget
-{
+class MainFrm : public QWidget {
     Q_OBJECT
 
 public:

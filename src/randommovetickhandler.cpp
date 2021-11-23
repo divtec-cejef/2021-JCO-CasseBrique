@@ -1,8 +1,8 @@
 /**
   \file
   \brief    Définition de la classe RandomMoveTickHandler.
-  \author   JCO
-  \date     août 2020
+  \author   CHENGAE
+  \date     Octobre 2021
 */
 #include "randommovetickhandler.h"
 

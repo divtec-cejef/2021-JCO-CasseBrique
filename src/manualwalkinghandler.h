@@ -1,11 +1,12 @@
-#ifndef MANUALWALKINGHANDLER_H
-#define MANUALWALKINGHANDLER_H
 /**
   \file
   \brief    Déclaration de la classe ManualWalkingHandler.
-  \author   JCO
-  \date     septembre 2018
+  \author   CHENGAE
+  \date     Octobre 2021
 */
+#ifndef MANUALWALKINGHANDLER_H
+#define MANUALWALKINGHANDLER_H
+
 #include "spritetickhandler.h"
 
 #include <QGraphicsTransform>

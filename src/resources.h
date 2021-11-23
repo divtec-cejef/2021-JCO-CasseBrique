@@ -1,8 +1,8 @@
 /**
   \file
   \brief    Méthodes utilitaires permettant d'accéder aux ressources.
-  \author   JCO
-  \date     février 2014
+  \author   CHENGAE
+  \date     Octobre 2021
   \version  1.0
 */
 #ifndef RESOURCES_H
@@ -13,8 +13,9 @@
 //!
 //! Espace de noms contenant les fonctions utilitaires pour les ressources.
 //!
-namespace GameFramework {
+namespace BrickBreaker {
     QString resourcesPath();
     QString imagesPath();
+    QString imagesPath(QString subFolder);
 }
 #endif // RESOURCES_H

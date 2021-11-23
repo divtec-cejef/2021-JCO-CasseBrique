@@ -1,8 +1,8 @@
 /**
   \file
   \brief    Déclaration de la classe SpriteTickHandler.
-  \author   JCO
-  \date     septembre 2018
+  \author   CHENGAE
+  \date     Octobre 2021
 */
 #ifndef SPRITETICKHANDLER_H
 #define SPRITETICKHANDLER_H
@@ -21,8 +21,8 @@ class Sprite;
 //! Depuis le gestionnaire, il est possible d'accéder au Sprite en question avec
 //! l'attribut m_pParentSprite.
 //!
-class SpriteTickHandler
-{
+class SpriteTickHandler {
+
 public:
     SpriteTickHandler(Sprite* pParentSprite = nullptr);
     virtual ~SpriteTickHandler();

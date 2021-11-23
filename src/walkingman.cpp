@@ -1,8 +1,8 @@
 /**
   \file
   \brief    Déclaration de la classe WalkingMan.
-  \author   JCO
-  \date     septembre 2018
+  \author   CHENGAE
+  \date     Octobre 2021
 */
 #include "walkingman.h"
 
@@ -18,7 +18,7 @@ WalkingMan::WalkingMan(QGraphicsItem* pParent) : Sprite(pParent) {
 //! les ajoute à ce sprite.
 void WalkingMan::configureAnimation() {
     for (int FrameNumber = 1; FrameNumber <= 8; ++FrameNumber)  {
-        this->addAnimationFrame(QString(GameFramework::imagesPath() + "marche%1.png").arg(FrameNumber));
+        this->addAnimationFrame(QString(BrickBreaker::imagesPath() + "marche%1.png").arg(FrameNumber));
     }
     this->setAnimationSpeed(100);  // Passe à la prochaine image de la marche toutes les 100 ms
     this->startAnimation();

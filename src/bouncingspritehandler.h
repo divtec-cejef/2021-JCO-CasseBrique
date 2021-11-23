@@ -1,8 +1,8 @@
 /**
   \file
   \brief    Déclaration de la classe BouncingSpriteHandler.
-  \author   JCO
-  \date     septembre 2018
+  \author   CHENGAE
+  \date     Octobre 2021
 */
 #ifndef BOUNCINGSPRITEHANDLER_H
 #define BOUNCINGSPRITEHANDLER_H
@@ -14,8 +14,8 @@
 
 #include "spritetickhandler.h"
 
-class BouncingSpriteHandler : public SpriteTickHandler
-{
+class BouncingSpriteHandler : public SpriteTickHandler {
+
 public:
     BouncingSpriteHandler(Sprite* pParentSprite = nullptr);
 
@@ -24,9 +24,9 @@ public:
 
     void tick(long long elapsedTimeInMilliseconds);
 
+    QPointF getVelocity();
 private:
     QPointF m_spriteVelocity;
-
 };
 
 #endif // BOUNCINGSPRITEHANDLER_H

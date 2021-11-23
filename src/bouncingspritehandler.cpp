@@ -1,8 +1,8 @@
 /**
   \file
   \brief    Définition de la classe BouncingSpriteHandler.
-  \author   JCO
-  \date     septembre 2018
+  \author   CHENGAE
+  \date     Octobre 2021
 */
 #include "bouncingspritehandler.h"
 
@@ -47,7 +47,7 @@ void BouncingSpriteHandler::tick(long long elapsedTimeInMilliseconds) {
     // Supprimer le sprite lui-même, qui collisionne toujours avec sa boundingbox
     collidingSprites.removeAll(m_pParentSprite);
 
-    if (!collidingSprites.isEmpty())  {
+    if (!collidingSprites.isEmpty()) {
         // On ne considère que la première collision (au cas où il y en aurait plusieurs)
         Sprite* pCollidingSprite = collidingSprites[0];
 
@@ -65,14 +65,19 @@ void BouncingSpriteHandler::tick(long long elapsedTimeInMilliseconds) {
         float minOverlapY = ballFromTop ? overlapTop : overlapBottom;
 
         if(std::abs(minOverlapX) < std::abs(minOverlapY))
-            m_spriteVelocity.setX(ballFromLeft ? -INITIAL_VELOCITY :INITIAL_VELOCITY);
+            m_spriteVelocity.setX(ballFromLeft ? -INITIAL_VELOCITY : INITIAL_VELOCITY);
         else
             m_spriteVelocity.setY(ballFromTop ? -INITIAL_VELOCITY : INITIAL_VELOCITY);
 
         spriteMovement = m_spriteVelocity * elapsedTimeInMilliseconds / 1000.;
+
+        // Parcours la liste et supprime ceux qui sont entrés en collision
+        for(int i = 0; i < collidingSprites.size(); i++) {
+            if (collidingSprites.at(i)->data(0).toString() == "brick-to-destroy") {
+                collidingSprites.at(i)->deleteLater();
+            }
+        }
     }
 
     m_pParentSprite->setPos(m_pParentSprite->pos() + spriteMovement);
 }
-
-

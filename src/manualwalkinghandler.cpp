@@ -1,8 +1,8 @@
 /**
   \file
   \brief    Définition de la classe ManualWalkingHandler.
-  \author   JCO
-  \date     septembre 2018
+  \author   CHENGAE
+  \date     Octobre 2021
 */
 #include "manualwalkinghandler.h"
 
@@ -40,7 +40,7 @@ void ManualWalkingHandler::tick(long long elapsedTime) {
     m_pParentSprite->setPos(currentPos);
 
     // Le sprite touche-t-il un mur ?
-    if (! (static_cast<GameScene*>(m_pParentSprite->scene())->collidingSprites(m_pParentSprite).isEmpty())) {
+    if (!(static_cast<GameScene*>(m_pParentSprite->scene())->collidingSprites(m_pParentSprite).isEmpty())) {
         if (m_walkingDirection == WALKING_RIGHT)  {
             // Il se déplaçait à droite : on le fait tourner à gauche
             m_pParentSprite->setTransformations(m_transformsForFlip); // Flip horizontal

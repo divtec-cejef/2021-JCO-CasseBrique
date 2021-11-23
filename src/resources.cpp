@@ -1,8 +1,8 @@
 /**
   \file
   \brief    Méthodes utilitaires permettant d'accéder aux ressources.
-  \author   JCO
-  \date     février 2014
+  \author   CHENGAE
+  \date     Octobre 2021
   \version  1.0
 */
 #include "resources.h"
@@ -11,7 +11,7 @@
 #include <QDir>
 #include <QDebug>
 
-namespace GameFramework {
+namespace BrickBreaker {
 /**
 Cette fonction retourne le chemin absolu du répertoire res.
 Si la pseudo-constante DEPLOY est définie, elle se base sur la structure
@@ -91,5 +91,10 @@ que la compilation se fasse en mode *Release* et que le pseudo-constante `DEPLOY
  */
     QString imagesPath() {
         return resourcesPath() + QDir::separator() + QString("images") + QDir::separator();
+    }
+
+
+    QString imagesPath(QString subFolder) {
+        return imagesPath() + QDir::separator() + subFolder + QDir::separator();
     }
 }

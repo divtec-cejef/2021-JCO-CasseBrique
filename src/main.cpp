@@ -1,6 +1,6 @@
-/*! \mainpage Game Framework
+/*! \mainpage 2021-JCO-CasseBrique
  *
- * \author JCO
+ * \author CHENGAE
  * \section intro_sec Introduction
  *
  * Ce projet est une architecture de base en vue de la création d'un jeu simple en 2D.
@@ -227,7 +227,7 @@ int main(int argc, char *argv[])
     // w.showMaximized();
 
     // Pour un mode d'affichage non-fenêtré, plein écran
-    // w.showFullScreen();
+    w.showFullScreen();
 
     return a.exec();
 }

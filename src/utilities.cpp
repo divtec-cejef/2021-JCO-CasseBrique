@@ -1,3 +1,9 @@
+/**
+  \file
+  \brief    Déclaration de la classe Utilities.
+  \author   CHENGAE
+  \date     Octobre 2021
+*/
 #include "utilities.h"
 
 #include <QApplication>
