@@ -35,6 +35,7 @@ public:
     void mouseButtonReleased(QPointF mousePosition, Qt::MouseButtons buttons);
 
     void init();
+    void restart();
     void tick(long long elapsedTimeInMilliseconds);
 
     void setCounterBricks(int counterBricks);

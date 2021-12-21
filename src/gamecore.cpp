@@ -43,6 +43,23 @@ GameCore::GameCore(GameCanvas* pGameCanvas, QObject* pParent) : QObject(pParent)
     // Mémorise l'accès au canvas (qui gère le tick et l'affichage d'une scène)
     m_pGameCanvas = pGameCanvas;
 
+    init();
+
+    // Définis la scène actuelle (Menu démarrage).
+    pGameCanvas->setCurrentScene(m_pSceneStart);
+
+    // Démarre le tick pour que les animations qui en dépendent fonctionnent correctement.
+    m_pGameCanvas->startTick();
+}
+
+//! Destructeur de GameCore : efface les scènes
+GameCore::~GameCore() {
+    delete m_pSceneGame;
+    m_pSceneGame = nullptr;
+}
+
+//! Initialise les éléments du jeu.
+void GameCore::init() {
     // Création des différentes scène du jeu.
     createSceneStart();
     createSceneGame();
@@ -67,21 +84,10 @@ GameCore::GameCore(GameCanvas* pGameCanvas, QObject* pParent) : QObject(pParent)
 
     // Création des textes.
     createText();
-
-    // Définis la scène actuelle (Menu démarrage).
-    pGameCanvas->setCurrentScene(m_pSceneStart);
-
-    // Démarre le tick pour que les animations qui en dépendent fonctionnent correctement.
-    m_pGameCanvas->startTick();
 }
 
-//! Destructeur de GameCore : efface les scènes
-GameCore::~GameCore() {
-    delete m_pSceneGame;
-    m_pSceneGame = nullptr;
-}
-
-void GameCore::init() {
+//! Reinitialise les éléments du jeu.
+void GameCore::restart() {
 
 }
 
@@ -222,7 +228,6 @@ void GameCore::createPlate() {
 
 //! Met en place les bordures autour de la zone de jeu.
 void GameCore::setupBoucingArea() {
-
     // Création des bordures de délimitation de la zone et placement.
     QPixmap border(BrickBreaker::imagesPath() + "border.png");
     border = border.scaled(BORDER_SIZE, BORDER_SIZE);
@@ -242,6 +247,7 @@ void GameCore::setupBoucingArea() {
     // Ajout de 3 sprites (utilisant les murs horizontaux et verticaux) pour délimiter une zone de rebond.
     m_pSceneGame->addSpriteToScene(new Sprite(horizontalWall), BOUNCING_AREA_POS.x() - BORDER_SIZE, BOUNCING_AREA_POS.y() - BORDER_SIZE);
     m_pSceneGame->addSpriteToScene(new Sprite(verticalWall), BOUNCING_AREA_POS.x() - BORDER_SIZE, BOUNCING_AREA_POS.y());
+    m_pSceneGame->addSpriteToScene(new Sprite(verticalWall), BOUNCING_AREA_POS.x() + BOUNCING_AREA_SIZE.x(), BOUNCING_AREA_POS.y());
 
     // Trace un rectangle tout autour des limites de la scène.
     m_pSceneGame->addRect(m_pSceneGame->sceneRect(), QPen(Qt::white));

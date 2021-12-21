@@ -83,43 +83,29 @@ void Ball::tick(long long elapsedTimeInMilliseconds) {
             if (collidingSprites.at(i)->data(0).toString() == "plate") {
                 Sprite* plate = collidingSprites.at(i);
 
-                int leftPlate = plate->left();
-                int rightPlate = plate->right();
-                int midPlate = plate->width() / 100;
-                int midBall = this->left() + (this->width() / 2);
+                double angle = 0;
+                double percent = ((100.0 / (plate->width() / 2)) * ((this->left() + (this->width() / 2)) - (plate->left() + (plate->width() / 2))));
+                bool ballHitLeft = (percent < 0);
 
-                bool ballHitLeft = (midBall < leftPlate + (midPlate * 50));
-
-                if(midBall < leftPlate + (midPlate * 15) || midBall > rightPlate - (midPlate * 15)) {
-                    m_angle = 50;
-
-                } else if (midBall < leftPlate + (midPlate * 40) || midBall > rightPlate - (midPlate * 40))  {
-                    m_angle = 50;
+                if(std::abs(percent) >= 10) {
+                    angle = std::abs(percent);
                 }
 
-                m_spriteVelocityX += (ballFromLeft ? (ballHitLeft ? m_angle : -m_angle) : (ballHitLeft ? -m_angle : m_angle));
-
-
-            } else {
-                m_angle = 0;
+                m_spriteVelocity.setX(m_spriteVelocityX + (ballFromLeft ? (ballHitLeft ? -angle : angle) : (ballHitLeft ? -angle : angle)));
             }
         }
 
-        if(std::abs(minOverlapX) < std::abs(minOverlapY)) {
+        if(std::abs(minOverlapX) < std::abs(minOverlapY))
             m_spriteVelocity.setX(ballFromLeft ? -m_spriteVelocityX : m_spriteVelocityX);
-        } else {
+        else
             m_spriteVelocity.setY(ballFromTop ? -m_spriteVelocityY : m_spriteVelocityY);
-
-            if(m_angle != 0.0)
-                m_spriteVelocity.setX(ballFromLeft ? -m_spriteVelocityX : m_spriteVelocityX);
-        }
 
         spriteMovement = m_spriteVelocity * elapsedTimeInMilliseconds / 1000.;
 
         // Parcours la liste des sprites avec des collisions.
         for(int i = 0; i < collidingSprites.size(); i++) {
             // Test si le sprite en collision est une brique, si oui : elle est détruite.
-            if (collidingSprites.at(i)->data(0).toString() == "brick") {
+            if (collidingSprites.at(i)->data(0).toString() == "brick" && collidingSprites.at(i)->data(1).toString() != "unbreakable") {
                 collidingSprites.at(i)->deleteLater();
             }
         }
