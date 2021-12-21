@@ -20,6 +20,7 @@ const int PLATE_HEIGHT = 100;
 //! Construit et initialise un plateau.
 //! \param pParent  Objet propiétaire de cet objet.
 Plate::Plate(QGraphicsItem* pParent) : Sprite(BrickBreaker::imagesPath() + "plate.png", pParent) {
+    this->setData(0, "plate");
     m_keyLeftPressed  = false;
     m_keyRightPressed = false;
     m_velocity = QPointF(0,0);
@@ -59,13 +60,13 @@ void Plate::onKeyPressed(int key) {
     // Si le joueur presse la flèche de gauche.
     case Qt::Key_Left:
         m_keyLeftPressed = true;
-        updateVelocity();
+        //updateVelocity();
         break;
 
     // Si le joueur presse la fléche de droite.
     case Qt::Key_Right:
         m_keyRightPressed = true;
-        updateVelocity();
+        //updateVelocity();
         break;
     }
 }
@@ -77,13 +78,13 @@ void Plate::onKeyReleased(int key) {
     // Si le joueur relache la flèche de gauche.
     case Qt::Key_Left:
         m_keyLeftPressed = false;
-        updateVelocity();
+        //updateVelocity();
         break;
 
     // Si le joueur relache la fléche de droite.
     case Qt::Key_Right:
         m_keyRightPressed = false;
-        updateVelocity();
+        //updateVelocity();
         break;
     }
 }

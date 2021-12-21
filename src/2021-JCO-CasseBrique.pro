@@ -21,7 +21,6 @@ SOURCES += main.cpp\
     bonus.cpp \
     brick.cpp \
     keytickhandler.cpp \
-    levelbuilder.cpp \
         mainfrm.cpp \
     gamescene.cpp \
     plate.cpp \
@@ -46,7 +45,6 @@ HEADERS  += mainfrm.h \
     brick.h \
     gamescene.h \
     keytickhandler.h \
-    levelbuilder.h \
     plate.h \
     player.h \
     randommovetickhandler.h \

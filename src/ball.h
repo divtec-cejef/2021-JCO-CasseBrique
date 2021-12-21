@@ -12,6 +12,7 @@
 #include <QGraphicsPixmapItem>
 #include <QPixmap>
 #include <QTimer>
+#include <QString>
 
 class GameScene;
 class SpriteTickHandler;
@@ -28,6 +29,7 @@ public:
 
     void setSpriteVelocity(QPointF spriteVelocity);
     void setSpriteVelocity(double xVelocity, double yVelocity);
+
     QPointF getSpriteVelocity();
 
 public slots:
@@ -36,6 +38,12 @@ public slots:
 
 private:
     QPointF m_spriteVelocity;
+    QPointF m_spriteMovement;
+
+    double m_angle = 0;
+
+    double m_spriteVelocityX = 0;
+    double m_spriteVelocityY = 200;
 };
 
 #endif // BALL_H

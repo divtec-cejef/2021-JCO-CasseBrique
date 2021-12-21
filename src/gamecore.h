@@ -34,14 +34,17 @@ public:
     void mouseButtonPressed(QPointF mousePosition, Qt::MouseButtons buttons);
     void mouseButtonReleased(QPointF mousePosition, Qt::MouseButtons buttons);
 
+    void init();
     void tick(long long elapsedTimeInMilliseconds);
 
+    void setCounterBricks(int counterBricks);
+
 signals:
+    void notifyKeyPressed(int key);
+    void notifyKeyReleased(int key);
     void notifyMouseMoved(QPointF newMousePosition);
     void notifyMouseButtonPressed(QPointF mousePosition, Qt::MouseButtons buttons);
     void notifyMouseButtonReleased(QPointF mousePosition, Qt::MouseButtons buttons);
-    void notifyKeyPressed(int key);
-    void notifyKeyReleased(int key);
 
     void notifyOnStart();
     void notifyOnPause();

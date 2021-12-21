@@ -23,7 +23,6 @@
 #include "brick.h"
 #include "gamescene.h"
 #include "gamecanvas.h"
-#include "levelbuilder.h"
 #include "plate.h"
 #include "resources.h"
 #include "sprite.h"
@@ -80,6 +79,10 @@ GameCore::GameCore(GameCanvas* pGameCanvas, QObject* pParent) : QObject(pParent)
 GameCore::~GameCore() {
     delete m_pSceneGame;
     m_pSceneGame = nullptr;
+}
+
+void GameCore::init() {
+
 }
 
 //! Cadence.
@@ -180,6 +183,11 @@ void GameCore::mouseButtonReleased(QPointF mousePosition, Qt::MouseButtons butto
 }
 
 
+void GameCore::setCounterBricks(int counterBricks) {
+    this->m_counterBricks = counterBricks;
+}
+
+
 //! Désincrémente le compteur de balle lorsqu'une balle est détruite
 //! et vérifie si il reste encore des balles en jeu sinon enlève une
 //! vie au joueur et recrée une nouvelle balle.
@@ -223,7 +231,7 @@ void GameCore::setupBoucingArea() {
     QPixmap horizontalWall(BOUNCING_AREA_SIZE.x() + (2 * BORDER_SIZE), BORDER_SIZE);
     QPainter painterHW(&horizontalWall);
     for (int col = 0; col < (BOUNCING_AREA_SIZE.x() + (2 * BORDER_SIZE) / BORDER_SIZE); col++)
-        painterHW.drawPixmap(col * BORDER_SIZE,0, border);
+        painterHW.drawPixmap(col * BORDER_SIZE, 0, border);
 
     // Création d'une image faite d'une suite verticale de bordure.
     QPixmap verticalWall(BORDER_SIZE, BOUNCING_AREA_SIZE.y());
@@ -234,7 +242,6 @@ void GameCore::setupBoucingArea() {
     // Ajout de 3 sprites (utilisant les murs horizontaux et verticaux) pour délimiter une zone de rebond.
     m_pSceneGame->addSpriteToScene(new Sprite(horizontalWall), BOUNCING_AREA_POS.x() - BORDER_SIZE, BOUNCING_AREA_POS.y() - BORDER_SIZE);
     m_pSceneGame->addSpriteToScene(new Sprite(verticalWall), BOUNCING_AREA_POS.x() - BORDER_SIZE, BOUNCING_AREA_POS.y());
-    m_pSceneGame->addSpriteToScene(new Sprite(verticalWall), BOUNCING_AREA_POS.x() + BOUNCING_AREA_SIZE.x(), BOUNCING_AREA_POS.y());
 
     // Trace un rectangle tout autour des limites de la scène.
     m_pSceneGame->addRect(m_pSceneGame->sceneRect(), QPen(Qt::white));
@@ -267,7 +274,7 @@ void GameCore::createBricks() {
             // Ajout d'un sprite (brique à casser) et lui attribut un "id".
             Sprite* pBrick = new Sprite(BrickBreaker::imagesPath() + "brick.png");
             pBrick->setPos(((m_pSceneGame->width() - (column * BRICK_SIZE.x())) / 2) + m_spaceLines, 50 + m_spaceColumns);
-            pBrick->setData(0, "brick-to-destroy");
+            pBrick->setData(0, "brick");
             m_pSceneGame->addSpriteToScene(pBrick);
             connect(pBrick, &Sprite::destroyed, this, &GameCore::onBrickDestroyed);
             m_spaceLines += BRICK_SIZE.x();
@@ -299,7 +306,6 @@ void GameCore::createText() {
     m_pTextGameLife = m_pSceneGame->createText(QPointF(0, -50), QString("Vie : ") + QString::number(m_playerLife), 30);
     m_pTextGameBrick = m_pSceneGame->createText(QPointF(SCENE_WIDTH / 2, -50), QString("Briques : ") + QString::number(m_counterBricks), 30);
 }
-
 
 //! Création de la scène de démarrage du jeu.
 void GameCore::createSceneStart() {
