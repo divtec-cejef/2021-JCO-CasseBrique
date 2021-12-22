@@ -6,7 +6,6 @@
 */
 #include "ball.h"
 
-//#include "bouncingspritehandler.h"
 #include "gamescene.h"
 #include "resources.h"
 #include "sprite.h"
@@ -91,7 +90,8 @@ void Ball::tick(long long elapsedTimeInMilliseconds) {
                     angle = std::abs(percent);
                 }
 
-                m_spriteVelocity.setX(m_spriteVelocityX + (ballFromLeft ? (ballHitLeft ? -angle : angle) : (ballHitLeft ? -angle : angle)));
+                m_spriteVelocityX += (ballFromLeft ? (ballHitLeft ? -angle : angle) : (ballHitLeft ? -angle : angle));
+                m_spriteVelocity.setX(m_spriteVelocityX);
             }
         }
 
