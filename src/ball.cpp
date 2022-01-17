@@ -22,8 +22,9 @@ const int INITIAL_VELOCITY_X = 0;
 const int INITIAL_VELOCITY_Y = 200;
 
 //! Constructeur
-Ball::Ball(const QPixmap& rPixmap, QGraphicsItem* pParent) : Sprite(rPixmap, pParent) {
+Ball::Ball(QGraphicsItem* pParent) : Sprite(BrickBreaker::imagesPath() + "ball.png", pParent) {
     this->setData(0, "ball");
+    this->setScale(0.05);
     setSpriteVelocity(INITIAL_VELOCITY_X, INITIAL_VELOCITY_Y);
     m_spriteVelocityX = INITIAL_VELOCITY_X;
     m_spriteVelocityY = INITIAL_VELOCITY_Y;
@@ -53,6 +54,7 @@ void Ball::tick(long long elapsedTimeInMilliseconds) {
 
     // Détermine la prochaine position du sprite
     QRectF nextSpriteRect = this->globalBoundingBox().translated(spriteMovement);
+    //QPainterPath nextSpriteRect = this->globalShape().translated(spriteMovement);
 
     // Récupère tous les sprites de la scène que toucherait ce sprite à sa prochaine position
     auto collidingSprites = this->parentScene()->collidingSprites(nextSpriteRect);
@@ -63,6 +65,9 @@ void Ball::tick(long long elapsedTimeInMilliseconds) {
     if (!collidingSprites.isEmpty()) {
         // On ne considère que la première collision (au cas où il y en aurait plusieurs)
         Sprite* pCollidingSprite = collidingSprites[0];
+
+        m_spriteVelocityX = m_spriteVelocity.x();
+        m_spriteVelocityY = m_spriteVelocity.y();
 
         // Technique très approximative pour simuler un rebond en simplifiant
         // la façon de déterminer le vecteur normal de la surface du rebond.
@@ -78,7 +83,7 @@ void Ball::tick(long long elapsedTimeInMilliseconds) {
         float minOverlapY = ballFromTop ? overlapTop : overlapBottom;
 
         for(int i = 0; i < collidingSprites.size(); i++) {
-            // Test si le sprite en collision est le plateau, si oui : la vélocité est modifiée.
+            // Test si le sprite en collision est le plateau, si oui : la vélocité est modifiée d'après l'emplacement de la colision.
             if (collidingSprites.at(i)->data(0).toString() == "plate") {
                 Sprite* plate = collidingSprites.at(i);
 
@@ -90,25 +95,22 @@ void Ball::tick(long long elapsedTimeInMilliseconds) {
                     angle = std::abs(percent);
                 }
 
-                m_spriteVelocityX += (ballFromLeft ? (ballHitLeft ? -angle : angle) : (ballHitLeft ? -angle : angle));
+                m_spriteVelocityX += ballHitLeft ? (ballHitLeft ? -angle : angle) : (ballHitLeft ? -angle : angle);
                 m_spriteVelocity.setX(m_spriteVelocityX);
+
+            // Test si le sprite en collision est une brique, si oui : elle est détruite.
+            } else if (collidingSprites.at(i)->data(0).toString() == "brick" && collidingSprites.at(i)->data(1).toString() != "unbreakable") {
+                collidingSprites.at(i)->deleteLater();
+                m_spriteVelocityY *= 1.05;
             }
         }
 
         if(std::abs(minOverlapX) < std::abs(minOverlapY))
-            m_spriteVelocity.setX(ballFromLeft ? -m_spriteVelocityX : m_spriteVelocityX);
+            m_spriteVelocity.setX(ballFromLeft ? -m_spriteVelocityX : -m_spriteVelocityX);
         else
-            m_spriteVelocity.setY(ballFromTop ? -m_spriteVelocityY : m_spriteVelocityY);
+            m_spriteVelocity.setY(ballFromTop ? -m_spriteVelocityY : -m_spriteVelocityY);
 
         spriteMovement = m_spriteVelocity * elapsedTimeInMilliseconds / 1000.;
-
-        // Parcours la liste des sprites avec des collisions.
-        for(int i = 0; i < collidingSprites.size(); i++) {
-            // Test si le sprite en collision est une brique, si oui : elle est détruite.
-            if (collidingSprites.at(i)->data(0).toString() == "brick" && collidingSprites.at(i)->data(1).toString() != "unbreakable") {
-                collidingSprites.at(i)->deleteLater();
-            }
-        }
     }
 
     // Test si la balle est à l'intérieur de la zone de jeux, si non : elle est détruite.

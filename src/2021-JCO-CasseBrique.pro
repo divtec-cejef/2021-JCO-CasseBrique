@@ -18,47 +18,29 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
     ball.cpp \
-    bonus.cpp \
-    brick.cpp \
-    keytickhandler.cpp \
         mainfrm.cpp \
     gamescene.cpp \
     plate.cpp \
-    player.cpp \
-    randommovetickhandler.cpp \
     sprite.cpp \
     gamecore.cpp \
     resources.cpp \
     gameview.cpp \
     utilities.cpp \
     gamecanvas.cpp \
-    walkingman.cpp \
-    spinningpinwheel.cpp \
     spritetickhandler.cpp \
-    bouncingspritehandler.cpp \
-    manualwalkinghandler.cpp \
-    automaticwalkinghandler.cpp
+    bouncingspritehandler.cpp
 
 HEADERS  += mainfrm.h \
     ball.h \
-    bonus.h \
-    brick.h \
     gamescene.h \
-    keytickhandler.h \
     plate.h \
-    player.h \
-    randommovetickhandler.h \
     sprite.h \
     gamecore.h \
     resources.h \
     gameview.h \
     utilities.h \
     gamecanvas.h \
-    walkingman.h \
-    spinningpinwheel.h \
     spritetickhandler.h \
-    bouncingspritehandler.h \
-    manualwalkinghandler.h \
-    automaticwalkinghandler.h
+    bouncingspritehandler.h
 
 FORMS    += mainfrm.ui

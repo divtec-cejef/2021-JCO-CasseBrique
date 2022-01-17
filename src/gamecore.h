@@ -34,11 +34,9 @@ public:
     void mouseButtonPressed(QPointF mousePosition, Qt::MouseButtons buttons);
     void mouseButtonReleased(QPointF mousePosition, Qt::MouseButtons buttons);
 
-    void init();
-    void restart();
+    void initGame();
+    void restartGame();
     void tick(long long elapsedTimeInMilliseconds);
-
-    void setCounterBricks(int counterBricks);
 
 signals:
     void notifyKeyPressed(int key);
@@ -47,25 +45,11 @@ signals:
     void notifyMouseButtonPressed(QPointF mousePosition, Qt::MouseButtons buttons);
     void notifyMouseButtonReleased(QPointF mousePosition, Qt::MouseButtons buttons);
 
-    void notifyOnStart();
     void notifyOnPause();
     void notifyOnResume();
 
 private:
-    void createSceneStart();
-    void createSceneGame();
-    void createSceneMenu();
-    void createSceneWin();
-    void createSceneLoss();
-    void createButton();
-    void createText();
-
-    void setupBoucingArea();
-    void createBricks();
-    void createPlate();
-    void createBall();
-
-
+    /***** Game Scènes *****/
     GameCanvas* m_pGameCanvas = nullptr;
     GameScene* m_pSceneStart = nullptr;
     GameScene* m_pSceneGame = nullptr;
@@ -73,30 +57,57 @@ private:
     GameScene* m_pSceneWin = nullptr;
     GameScene* m_pSceneLoss = nullptr;
 
-    QGraphicsSimpleTextItem* m_pTextGameLife = nullptr;
-    QGraphicsSimpleTextItem* m_pTextGameBrick = nullptr;
+
+    /***** Fonctions *****/
+    // Scènes
+    void createSceneStart();
+    void createSceneGame();
+    void createSceneMenu();
+    void createSceneWin();
+    void createSceneLoss();
+    void changeCurrentScene(GameScene* pScene);
+
+    // Eléments du jeux
+    void setupBoucingArea();
+    void createBricks();
+    void createPlate();
+    void createBall();
+    void createLife();
 
 
+    /***** Sprites *****/
+    Sprite* m_pLogoTitle = nullptr;
+    Sprite* m_pLogoGame = nullptr;
+    Sprite* m_pLogoMenu = nullptr;
+    Sprite* m_pLogoWin = nullptr;
+    Sprite* m_pLogoLoss = nullptr;
+    Sprite* m_pBTStartStart = nullptr;
+    Sprite* m_pBTStartExit = nullptr;
+    Sprite* m_pBTMenuResume = nullptr;
+    Sprite* m_pBTMenuNewGame = nullptr;
+    Sprite* m_pBTMenuExit = nullptr;
+    Sprite* m_pBTWinNewGame = nullptr;
+    Sprite* m_pBTWinExit = nullptr;
+    Sprite* m_pBTLossNewGame = nullptr;
+    Sprite* m_pBTLossExit = nullptr;
     Sprite* m_pPlate = nullptr;
     Sprite* m_pBall = nullptr;
 
-    Sprite* m_pButtonStart = nullptr;
-    Sprite* m_pButtonResume = nullptr;
-    Sprite* m_pButtonNewGame = nullptr;
-    Sprite* m_pButtonExit = nullptr;
+
+    /***** Booléen *****/
+    bool m_pOnClick = false;
+    bool m_pIsWaiting = true;
 
 
-    bool m_onClick = false;
-    bool m_isDead = false;
-    bool m_isRestart = false;
-    bool m_isWaiting = true;
+    /***** Int *****/
+    int m_pPlayerLife = 0;
+    int m_pCounterBall = 0;
+    int m_pCounterBricks = 0;
 
 
-    int m_playerLife = 3;
-    int m_spaceLines = 0;
-    int m_spaceColumns = 0;
-    int m_counterBall = 0;
-    int m_counterBricks = 0;
+    /***** Listes *****/
+    QList<Sprite*> m_pPlayerLifeList = {};
+    QList<QString> m_pBrickColors = {"Blue", "Cyan", "Gray", "Green", "Orange", "Pink", "Red", "Yellow"};
 
 private slots:
     void onBallDestroyed();

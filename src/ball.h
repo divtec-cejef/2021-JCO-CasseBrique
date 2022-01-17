@@ -23,7 +23,7 @@ class Ball : public Sprite {
     Q_OBJECT
 
 public:
-    Ball(const QPixmap& rPixmap, QGraphicsItem* pParent = nullptr);
+    Ball(QGraphicsItem* pParent = nullptr);
 
     void tick(long long elapsedTimeInMilliseconds);
 

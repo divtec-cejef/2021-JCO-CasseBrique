@@ -10,7 +10,7 @@
 #include <QDesktopWidget>
 #include <QScreen>
 
-namespace GameFramework {
+namespace BrickBreaker {
 
     //! \return le rapport entre la largeur de l'écran et sa hauteur.
     double screenRatio() {
