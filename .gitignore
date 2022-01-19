@@ -57,3 +57,4 @@ compile_commands.json
 # Folders
 /build
 /build-debug
+/doc/GameFramework
