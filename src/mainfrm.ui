@@ -11,11 +11,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Casse Brique</string>
+   <string>Brick Breaker</string>
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>../res/images/Logo_CasseBrique.ico</normaloff>../res/images/Logo_CasseBrique.ico</iconset>
+    <normaloff>../res/images/iconBrickBreaker.ico</normaloff>../res/images/iconBrickBreaker.ico</iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>

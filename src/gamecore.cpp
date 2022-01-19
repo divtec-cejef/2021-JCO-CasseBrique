@@ -9,6 +9,7 @@
 #include <cmath>
 #include <random>
 #include <ctime>
+#include <windows.h>
 
 #include <QColor>
 #include <QtCore>
@@ -222,18 +223,6 @@ void GameCore::mouseButtonReleased(QPointF mousePosition, Qt::MouseButtons butto
 }
 
 
-//! Créer le plateau que le joueur contrôle.
-//! Positionne le plateau et l'ajoute à la scène de jeu.
-//! Ajoute le plateau à la cadence et envoie une notifications lorsque la souris est bougée.
-void GameCore::createPlate() {
-    Plate* pPlate = new Plate;
-    pPlate->setPos((m_pSceneGame->width()/2.0)-(pPlate->width()/2.0), m_pSceneGame->height()-100.0);
-    m_pSceneGame->addSpriteToScene(pPlate);
-    pPlate->registerForTick();
-    connect(this, &GameCore::notifyMouseMoved, pPlate, &Plate::onMouseMoved);
-    m_pPlate = pPlate;
-}
-
 //! Met en place les bordures autour de la zone de jeu.
 //! Met en place le rectangle autour de la zone de jeu.
 void GameCore::setupBoucingArea() {
@@ -262,19 +251,16 @@ void GameCore::setupBoucingArea() {
     m_pSceneGame->addRect(m_pSceneGame->sceneRect(), QPen(Qt::white));
 }
 
-//! Créer une balle qui rebondit.
-//! Positionne la balle et l'ajoute à la scène de jeu.
-//! Envoie une notifications lorsque la balle est détruite, que le jeu est mit en pause et qu'il n'est plus en pause.
-void GameCore::createBall() {
-    Ball* pBall = new Ball;
-    m_pCounterBall++;
-    m_pSceneGame->addSpriteToScene(pBall);
-    connect(pBall, &Ball::destroyed, this, &GameCore::onBallDestroyed);
-    connect(this, &GameCore::notifyOnResume, pBall, &Ball::onResumeTick);
-    connect(this, &GameCore::notifyOnPause, pBall, &Ball::onPauseTick);
-    m_pBall = pBall;
-
-    m_pIsWaiting = true;
+//! Créer le plateau que le joueur contrôle.
+//! Positionne le plateau et l'ajoute à la scène de jeu.
+//! Ajoute le plateau à la cadence et envoie une notifications lorsque la souris est bougée.
+void GameCore::createPlate() {
+    Plate* pPlate = new Plate;
+    pPlate->setPos((m_pSceneGame->width()/2.0)-(pPlate->width()/2.0), m_pSceneGame->height()-100.0);
+    m_pSceneGame->addSpriteToScene(pPlate);
+    pPlate->registerForTick();
+    connect(this, &GameCore::notifyMouseMoved, pPlate, &Plate::onMouseMoved);
+    m_pPlate = pPlate;
 }
 
 //! Créer les briques avec des couleurs aléatoires.
@@ -314,6 +300,21 @@ void GameCore::createBricks() {
         spaceLines = 0;
         spaceColumns += BRICK_SIZE.y();
     }
+}
+
+//! Créer une balle qui rebondit.
+//! Positionne la balle et l'ajoute à la scène de jeu.
+//! Envoie une notifications lorsque la balle est détruite, que le jeu est mit en pause et qu'il n'est plus en pause.
+void GameCore::createBall() {
+    Ball* pBall = new Ball;
+    m_pCounterBall++;
+    m_pSceneGame->addSpriteToScene(pBall);
+    connect(pBall, &Ball::destroyed, this, &GameCore::onBallDestroyed);
+    connect(this, &GameCore::notifyOnResume, pBall, &Ball::onResumeTick);
+    connect(this, &GameCore::notifyOnPause, pBall, &Ball::onPauseTick);
+    m_pBall = pBall;
+
+    m_pIsWaiting = true;
 }
 
 //! Créer les coeurs qui représente les vies.
@@ -434,11 +435,11 @@ void GameCore::createSceneLoss() {
 //! Si la prochaine scène est une autre scène : affiche le curseur.
 void GameCore::changeCurrentScene(GameScene *pScene) {
     if (pScene == m_pSceneGame) {
-        BrickBreaker::hideMouseCursor();
+        //BrickBreaker::hideMouseCursor();
         m_pGameCanvas->setCurrentScene(pScene);
 
     } else {
-        BrickBreaker::showMouseCursor();
+        //BrickBreaker::showMouseCursor();
         m_pGameCanvas->setCurrentScene(pScene);
     }
 }

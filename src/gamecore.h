@@ -105,6 +105,9 @@ private:
     int m_pCounterBricks = 0;
 
 
+    /***** Coordonées *****/
+    QPointF m_pOldMousePosition = QPointF(0, 0);
+
     /***** Listes *****/
     QList<Sprite*> m_pPlayerLifeList = {};
     QList<QString> m_pBrickColors = {"Blue", "Cyan", "Gray", "Green", "Orange", "Pink", "Red", "Yellow"};

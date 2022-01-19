@@ -36,6 +36,4 @@ namespace BrickBreaker {
     void showMouseCursor() {
         qApp->restoreOverrideCursor();
     }
-
-
 }
