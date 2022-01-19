@@ -13,7 +13,7 @@
 //!
 //! Espace de noms contenant les fonctions utilitaires.
 //!
-namespace GameFramework {
+namespace BrickBreaker {
     double screenRatio();
     QSize screenSize();
 

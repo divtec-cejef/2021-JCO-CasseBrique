@@ -14,14 +14,12 @@
 #include <QGraphicsScale>
 
 //Déclaration des constantes.
-const int PLATE_VELOCITY = 150; // pixels par seconde
-const int PLATE_HEIGHT = 100;
+const int PLATE_X = 100;
 
 //! Construit et initialise un plateau.
 //! \param pParent  Objet propiétaire de cet objet.
 Plate::Plate(QGraphicsItem* pParent) : Sprite(BrickBreaker::imagesPath() + "plate.png", pParent) {
-    m_keyLeftPressed  = false;
-    m_keyRightPressed = false;
+    this->setData(0, "plate");
     m_velocity = QPointF(0,0);
 }
 
@@ -52,73 +50,19 @@ void Plate::tick(long long elapsedTimeInMilliseconds) {
 
 }
 
-//! Traite la pression d'une touche.
-//! \param key Numéro de la touche (voir les constantes Qt)
-void Plate::onKeyPressed(int key) {
-    switch (key) {
-    // Si le joueur presse la flèche de gauche.
-    case Qt::Key_Left:
-        m_keyLeftPressed = true;
-        updateVelocity();
-        break;
-
-    // Si le joueur presse la fléche de droite.
-    case Qt::Key_Right:
-        m_keyRightPressed = true;
-        updateVelocity();
-        break;
-    }
-}
-
-//! Traite le relâchement d'une touche.
-//! \param key Numéro de la touche (voir les constantes Qt)
-void Plate::onKeyReleased(int key) {
-    switch (key) {
-    // Si le joueur relache la flèche de gauche.
-    case Qt::Key_Left:
-        m_keyLeftPressed = false;
-        updateVelocity();
-        break;
-
-    // Si le joueur relache la fléche de droite.
-    case Qt::Key_Right:
-        m_keyRightPressed = false;
-        updateVelocity();
-        break;
-    }
-}
-
 //! La souris a été déplacée.
 //! Pour que cet événement soit pris en compte, la propriété MouseTracking de GameView
 //! doit être enclenchée avec GameCanvas::startMouseTracking().
 void Plate::onMouseMoved(QPointF newMousePosition) {
     qreal positionX = this->width()/2.0; //Centre du plateau
 
-    // Le plateau suit la souris uniquement à l'interieur du la zone de jeux et
-    // le plateau s'arrète au bordure de la zone.
-    if (newMousePosition.x() > 0 && newMousePosition.x() < m_pParentScene->width() &&
-            newMousePosition.y() > 0 && newMousePosition.y() < m_pParentScene->height()) {
+    // Le plateau suit la souris et le plateau s'arrète au bordure de la zone.
+    if (newMousePosition.x() > m_pParentScene->width() - this->width() / 2.0)
+        positionX = m_pParentScene->width() - this->width() / 2.0;
 
-        if (newMousePosition.x() > m_pParentScene->width() - this->width() / 2.0)
-            positionX = m_pParentScene->width() - this->width() / 2.0;
+    else if (newMousePosition.x() > this->width() / 2.0)
+        positionX = newMousePosition.x();
 
-        else if (newMousePosition.x() > this->width() / 2.0)
-            positionX = newMousePosition.x();
-
-        this->setPos(positionX - this->width() / 2.0, m_pParentScene->height() - PLATE_HEIGHT);
-    }
-}
-
-//! Met à jours la vitesse du plateau.
-void Plate::updateVelocity() {
-    int velocity = 0;
-
-    if (m_keyLeftPressed)
-        velocity = -PLATE_VELOCITY;
-
-    if (m_keyRightPressed)
-        velocity =  PLATE_VELOCITY;
-
-    m_velocity = QPoint(velocity, 0);
+    this->setPos(positionX - this->width() / 2.0, m_pParentScene->height() - PLATE_X);
 }
 

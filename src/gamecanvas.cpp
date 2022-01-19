@@ -18,7 +18,7 @@
 #include <QGraphicsTextItem>
 #include <QKeyEvent>
 
-const int DEFAULT_TICK_INTERVAL = 20;
+const int DEFAULT_TICK_INTERVAL = 10;
 
 //!
 //! Construit le canvas de jeu, qui se charge de faire l'interface entre GameView, GameScene et GameCore.
@@ -194,7 +194,7 @@ void GameCanvas::keyReleased(QKeyEvent* pKeyEvent) {
     if (pKeyEvent->isAutoRepeat())
         pKeyEvent->ignore();
     else */{
-        m_pGameCore->keyPressed(pKeyEvent->key());
+        m_pGameCore->keyReleased(pKeyEvent->key());
         pKeyEvent->accept();
     }
 }

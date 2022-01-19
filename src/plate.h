@@ -20,16 +20,11 @@ public:
     void tick(long long elapsedTimeInMilliseconds);
 
 public slots:
-    void onKeyPressed(int key);
-    void onKeyReleased(int key);
     void onMouseMoved(QPointF newMousePosition);
 
 private:
-    void updateVelocity();
-
     QPointF m_velocity;
-    bool m_keyLeftPressed;
-    bool m_keyRightPressed;
+
 };
 
 #endif // PLATE_H
